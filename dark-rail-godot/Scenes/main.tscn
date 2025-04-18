@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://cv5u1e8bvid36"]
+
+[ext_resource type="Material" uid="uid://cwci62bjd4djm" path="res://Materials/ground_texture.tres" id="1_jjgbg"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_0xm2m"]
+material = ExtResource("1_jjgbg")
+
+[node name="Main" type="Node3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("PlaneMesh_0xm2m")
