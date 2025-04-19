@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://clyhclfq6vqu2"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_0jkly"]
+top_radius = 0.0
+bottom_radius = 2.025
+height = 6.91
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_0vwjc"]
+
+[node name="tree" type="MeshInstance3D"]
+transform = Transform3D(1, 0, 0, 0, 1.17831, 0, 0, 0, 1, 0, 0, 0)
+mesh = SubResource("CylinderMesh_0jkly")
+
+[node name="treetrunk" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.661057, 0, 0, 0, 1.94092, 0, 0, 0, 1, 0, -5.30689, 0)
+mesh = SubResource("CylinderMesh_0vwjc")
