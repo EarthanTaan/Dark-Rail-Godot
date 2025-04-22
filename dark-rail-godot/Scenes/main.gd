@@ -8,6 +8,7 @@ extends Node3D
 @onready var mouse_captured = true
 
 # "T" key toggles control modes between walk and pilot mapping contexts.
+# Ultimately I will want this to only trigger when inside the train engine.
 @export var mode_swap:GUIDEAction
 # Context mode Toggle begins in off position.
 @onready var pilot_mode_active = false

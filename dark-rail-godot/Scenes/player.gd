@@ -40,14 +40,16 @@ func mouse_look():
 	if camera.rotation_degrees.x < -90:
 		camera.rotation_degrees.x = -90
 
+# Suite of train controls; assigning GUIDEActions to game functions.
 func control_train():
 	# train_throttle
 	if GUIDE.is_mapping_context_enabled(pilot_mode):
-		# This is basically working, it makes a number go up and down. Now I just have to refine the effect.
-		# Once again I am asking myself if this is better than just coding it in Godot's Input System.
-		# I'm gonna scream. Why is it continually inputing?
-		throttle_setting += train_throttle.value_axis_1d
-		print(throttle_setting)
+		# This is working. 'W' & 'S' Adjust a throttle var up and down by 1 int.
+		# Now I just have to hook that up to an actual engine mechanic.
+		if train_throttle.is_triggered():
+			throttle_setting += train_throttle.value_axis_1d
+			# Need to lock this between a range of 4 settings.
+			print(throttle_setting)
 		# train_ebrake
 		# train_switch_toggle
 		if train_switch_toggle.is_triggered():
