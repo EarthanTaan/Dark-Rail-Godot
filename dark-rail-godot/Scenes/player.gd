@@ -12,7 +12,10 @@ const JUMP_VELOCITY = 4.5
 @export var train_ebrake:GUIDEAction
 @export var train_switch_toggle:GUIDEAction
 
-var throttle_setting:int
+# gearbox: the states | throttle_settings: a keyring to the states | throttle_lever: point at the keyring
+const gearbox = {"Reverse": -0.5, "Neutral": 0, "Forward": 1.5, "Accelerate": 2}
+var throttle_settings:Array = gearbox.keys() # This is now 0-3 & mapped to the key-words above.
+var throttle_lever:int = 1
 
 func _physics_process(delta):
 	# Move with WASD
@@ -42,20 +45,30 @@ func mouse_look():
 
 # Suite of train controls; assigning GUIDEActions to game functions.
 func control_train():
-	# train_throttle
+	# First, check if the pilot_mode mapping context is active.
 	if GUIDE.is_mapping_context_enabled(pilot_mode):
-		# This is working. 'W' & 'S' Adjust a throttle var up and down by 1 int.
-		# Now I just have to hook that up to an actual engine mechanic.
+		# train_throttle part:
+		# The following is working. 'W' & 'S' Adjust a throttle variable up and down by an int of 1.
 		if train_throttle.is_triggered():
-			throttle_setting += train_throttle.value_axis_1d
-			# Need to lock this between a range of 4 settings.
-			print(throttle_setting)
-		# train_ebrake
-		# train_switch_toggle
+			throttle_lever = clampi(throttle_lever + train_throttle.value_axis_1d, 0, 3)
+			# Trying to see if the train_mode movement is actually being mutiplied by the hearbox values, or by zzzzzzzzzzz
+			print("throttle_lever: " + str([throttle_lever]) + 
+			"\nthrottle_settings: " + str(throttle_settings) + 
+			"\ngearbox: " + str(gearbox))
+		# Now I just have to hook that up to an actual engine mechanic.
+		# train_switch_toggle part:
+		# Pressing left-shift will flip the toggle between the left and right positions.
 		if train_switch_toggle.is_triggered():
 			track_switch_lever = !track_switch_lever
 			match track_switch_lever:
 				false: print("Track Switch: Left")
 				true: print("Track Switch: Right")
+		# train_ebrake part:
+			# Hold space to dramatically decelerate - not sure how to approach this yet.
+		velocity.z += -1 * SPEED * gearbox[throttle_settings[throttle_lever]]
+	# Let's make sure the train can't entirely leave the player behind.
+	else: # pilot_mode is NOT enabled:
+		throttle_lever = 0 # Set throttle to neutral.
+		# Maybe apply gentle brakes as well.
 	
 	
