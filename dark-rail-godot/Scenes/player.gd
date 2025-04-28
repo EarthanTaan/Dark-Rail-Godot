@@ -19,10 +19,8 @@ var throttle_settings:Array = gearbox.keys() # This is now 0-3 & mapped to the k
 var throttle_lever:int = 1 # Starting it in Neutral.
 
 func _physics_process(delta):
-	# Move with WASD
-	# 'velocity' is built-in body-motion from move_and_slide(); 'basis' is built-in for relative rotation;
-	# 'move' creates direction (x, x, 0) relative to basis; multiply by SPEED to move
-	velocity = basis * move.value_axis_3d * SPEED
+	# Disabling walk controls until I can make them behave (or indefinitely).
+	#velocity = basis * move.value_axis_3d * SPEED
 	
 	# Call my functions.
 	mouse_look() # Look with the mouse.
