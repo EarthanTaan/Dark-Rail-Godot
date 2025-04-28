@@ -15,7 +15,7 @@ const JUMP_VELOCITY = 4.5
 # gearbox: the states | throttle_settings: a keyring to the states | throttle_lever: point at the keyring
 const gearbox = {"Reverse": -0.5, "Neutral": 0, "Forward": 1.5, "Accelerate": 2}
 var throttle_settings:Array = gearbox.keys() # This is now 0-3 & mapped to the key-words above.
-var throttle_lever:int = 1
+var throttle_lever:int = 1 # Starting it in Neutral.
 
 func _physics_process(delta):
 	# Move with WASD
@@ -68,7 +68,7 @@ func control_train():
 		velocity.z += -1 * SPEED * gearbox[throttle_settings[throttle_lever]]
 	# Let's make sure the train can't entirely leave the player behind.
 	else: # pilot_mode is NOT enabled:
-		throttle_lever = 0 # Set throttle to neutral.
+		throttle_lever = 1 # Set throttle to neutral.
 		# Maybe apply gentle brakes as well.
 	
 	

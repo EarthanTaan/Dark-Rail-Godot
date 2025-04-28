@@ -1,11 +1,16 @@
-[gd_scene load_steps=3 format=3 uid="uid://clyhclfq6vqu2"]
+[gd_scene load_steps=5 format=3 uid="uid://clyhclfq6vqu2"]
+
+[ext_resource type="Material" uid="uid://bkvvaefngwjf3" path="res://Materials/treetop_material.tres" id="1_rsuno"]
+[ext_resource type="Material" uid="uid://damg3yiyopljj" path="res://Materials/treetrunk_material.tres" id="2_l7sa7"]
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_0jkly"]
+material = ExtResource("1_rsuno")
 top_radius = 0.0
 bottom_radius = 2.025
 height = 6.91
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_0vwjc"]
+material = ExtResource("2_l7sa7")
 
 [node name="tree" type="MeshInstance3D"]
 transform = Transform3D(1, 0, 0, 0, 1.17831, 0, 0, 0, 1, 0, 0, 0)
