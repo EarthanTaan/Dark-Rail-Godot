@@ -208,16 +208,17 @@ path_continuous_u = true
 path_u_distance = 1.0
 path_joined = false
 
-[node name="PathFollow3D" type="PathFollow3D" parent="Railroad"]
+[node name="train_mover" type="PathFollow3D" parent="Railroad"]
 transform = Transform3D(0.333943, 0, -0.942582, 0, 1, 0, 0.942582, 0, 0.333943, -5.66698, 0, -86.0339)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Railroad/PathFollow3D"]
+[node name="train_mesh" type="MeshInstance3D" parent="Railroad/train_mover"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
 mesh = SubResource("BoxMesh_jkdf5")
 
-[node name="Player" type="CharacterBody3D" parent="Railroad/PathFollow3D/MeshInstance3D"]
+[node name="Player" type="CharacterBody3D" parent="Railroad/train_mover/train_mesh"]
 transform = Transform3D(0.111028, 0, -0.993828, 0, 1, 0, 0.993828, 0, 0.111028, 0, 1, 0)
 script = ExtResource("2_bo1nx")
+train_speed = 0.25
 pilot_mode = ExtResource("4_ynf5e")
 move = ExtResource("3_8gbba")
 look = ExtResource("7_6bp64")
@@ -225,11 +226,11 @@ train_throttle = ExtResource("11_fdnlq")
 train_ebrake = ExtResource("12_jkdf5")
 train_switch_toggle = ExtResource("13_wsu2k")
 
-[node name="player_collider" type="CollisionShape3D" parent="Railroad/PathFollow3D/MeshInstance3D/Player"]
+[node name="player_collider" type="CollisionShape3D" parent="Railroad/train_mover/train_mesh/Player"]
 shape = SubResource("CapsuleShape3D_bo1nx")
 
-[node name="player_mesh" type="MeshInstance3D" parent="Railroad/PathFollow3D/MeshInstance3D/Player"]
+[node name="player_mesh" type="MeshInstance3D" parent="Railroad/train_mover/train_mesh/Player"]
 mesh = SubResource("CapsuleMesh_8gbba")
 
-[node name="player_camera" type="Camera3D" parent="Railroad/PathFollow3D/MeshInstance3D/Player"]
+[node name="player_camera" type="Camera3D" parent="Railroad/train_mover/train_mesh/Player"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.584973, 0)

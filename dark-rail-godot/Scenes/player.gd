@@ -5,6 +5,7 @@ const JUMP_VELOCITY = 4.5
 @onready var camera = $player_camera
 @onready var track_switch_lever = false # false = left / true = right
 
+@export var train_speed:float = 1.0
 @export var pilot_mode:GUIDEMappingContext
 @export var move:GUIDEAction
 @export var look:GUIDEAction
@@ -65,7 +66,7 @@ func control_train():
 				true: print("Track Switch: Right")
 		# train_ebrake part:
 			# Hold space to dramatically decelerate - not sure how to approach this yet.
-		velocity.z += -1 * SPEED * gearbox[throttle_settings[throttle_lever]]
+		$"../..".progress += train_speed * gearbox[throttle_settings[throttle_lever]]
 	# Let's make sure the train can't entirely leave the player behind.
 	else: # pilot_mode is NOT enabled:
 		throttle_lever = 1 # Set throttle to neutral.
