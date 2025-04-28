@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://cv5u1e8bvid36"]
+[gd_scene load_steps=25 format=3 uid="uid://cv5u1e8bvid36"]
 
 [ext_resource type="Material" uid="uid://cwci62bjd4djm" path="res://Materials/ground_texture.tres" id="1_jjgbg"]
 [ext_resource type="Script" uid="uid://bgsv5tx3tqh6d" path="res://Scenes/main.gd" id="1_kry3j"]
@@ -40,17 +40,21 @@ material = ExtResource("8_jkdf5")
 left_to_right = 0.8
 size = Vector3(20, 20, 20)
 
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_bo1nx"]
-
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_8gbba"]
-
 [sub_resource type="Curve3D" id="Curve3D_jkdf5"]
 closed = true
+bake_interval = 0.01
 _data = {
-"points": PackedVector3Array(-8.80342, 0, 11.6205, 8.80342, 0, -11.6205, -4.22562, 0, -81.1674, -17.959, 0, -13.3812, 17.959, 0, 13.3812, 55.9897, 0, -82.5759, 0.352112, 0, -24.6495, -0.352112, 0, 24.6495, 61.2717, 0, -33.9811, 0, 0, -28.8752, 0, 0, 28.8752, 84.8648, 0, 15.6701, 15.1419, 0, -14.4376, -15.1419, 0, 14.4376, 50.3555, 0, 51.2358, 11.9726, 0, -3.16924, -11.9726, 0, 3.16924, 19.7196, 0, 84.3366, 15.494, 0, 8.09914, -15.494, 0, -8.09914, -42.9606, 0, 84.6888, 9.50768, 0, 15.494, -9.50768, 0, -15.494, -52.4683, 0, 43.1367, 6.33846, 0, 25.7059, -6.33846, 0, -25.7059, -83.1042, 0, 3.69743, -12.3248, 0, 10.5641, 12.3248, 0, -10.5641, -77.8221, 0, -47.7145, -19.3675, 0, 10.9162, 19.3675, 0, -10.9162, -27.1145, 0, -52.2922),
+"points": PackedVector3Array(-4.04136, 0, 1.43179, 4.04136, 0, -1.43179, -5.66698, 0, -86.0339, -17.959, 0, -13.3812, 17.959, 0, 13.3812, 46.9256, 0, -84.2937, 0.352112, 0, -24.6495, -0.352112, 0, 24.6495, 61.2717, 0, -33.9811, 0, 0, -28.8752, 0, 0, 28.8752, 84.8648, 0, 15.6701, 15.1419, 0, -14.4376, -15.1419, 0, 14.4376, 50.3555, 0, 51.2358, 11.9726, 0, -3.16924, -11.9726, 0, 3.16924, 19.7196, 0, 84.3366, 15.494, 0, 8.09914, -15.494, 0, -8.09914, -42.9606, 0, 84.6888, 9.50768, 0, 15.494, -9.50768, 0, -15.494, -52.4683, 0, 43.1367, 6.33846, 0, 25.7059, -6.33846, 0, -25.7059, -83.1042, 0, 3.69743, -12.3248, 0, 10.5641, 12.3248, 0, -10.5641, -77.8221, 0, -47.7145, -11.9649, 0, 16.3964, 11.9649, 0, -16.3964, -36.6841, 0, -64.4548),
 "tilts": PackedFloat32Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
 }
 point_count = 11
+
+[sub_resource type="BoxMesh" id="BoxMesh_jkdf5"]
+size = Vector3(2, 0.2, 5)
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_bo1nx"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_8gbba"]
 
 [node name="Main" type="Node3D"]
 script = ExtResource("1_kry3j")
@@ -173,8 +177,46 @@ skeleton = NodePath("../../root/@EditorNode@21272/@Panel@14/@VBoxContainer@15/Do
 transform = Transform3D(0.629966, 0, -0.327726, 0, 0.4175, 0, 0.703441, 0, 0.293495, -47.3612, 4.03543, 21.1348)
 mesh = SubResource("PrismMesh_fdnlq")
 
-[node name="Player" type="CharacterBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.398449, 1.10303, 0.645611)
+[node name="Railroad" type="Path3D" parent="."]
+curve = SubResource("Curve3D_jkdf5")
+
+[node name="Rail_Left" type="CSGPolygon3D" parent="Railroad"]
+polygon = PackedVector2Array(-1, 0.2, -1, 0.4, -0.9, 0.4, -0.9, 0.2)
+mode = 2
+path_node = NodePath("..")
+path_interval_type = 0
+path_interval = 1.0
+path_simplify_angle = 0.0
+path_rotation = 2
+path_rotation_accurate = false
+path_local = false
+path_continuous_u = true
+path_u_distance = 1.0
+path_joined = false
+
+[node name="Rail_Right" type="CSGPolygon3D" parent="Railroad"]
+polygon = PackedVector2Array(1, 0.2, 1, 0.4, 0.9, 0.4, 0.9, 0.2)
+mode = 2
+path_node = NodePath("..")
+path_interval_type = 0
+path_interval = 1.0
+path_simplify_angle = 0.0
+path_rotation = 2
+path_rotation_accurate = false
+path_local = false
+path_continuous_u = true
+path_u_distance = 1.0
+path_joined = false
+
+[node name="PathFollow3D" type="PathFollow3D" parent="Railroad"]
+transform = Transform3D(0.333943, 0, -0.942582, 0, 1, 0, 0.942582, 0, 0.333943, -5.66698, 0, -86.0339)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Railroad/PathFollow3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+mesh = SubResource("BoxMesh_jkdf5")
+
+[node name="Player" type="CharacterBody3D" parent="Railroad/PathFollow3D/MeshInstance3D"]
+transform = Transform3D(0.111028, 0, -0.993828, 0, 1, 0, 0.993828, 0, 0.111028, 0, 1, 0)
 script = ExtResource("2_bo1nx")
 pilot_mode = ExtResource("4_ynf5e")
 move = ExtResource("3_8gbba")
@@ -183,14 +225,11 @@ train_throttle = ExtResource("11_fdnlq")
 train_ebrake = ExtResource("12_jkdf5")
 train_switch_toggle = ExtResource("13_wsu2k")
 
-[node name="player_collider" type="CollisionShape3D" parent="Player"]
+[node name="player_collider" type="CollisionShape3D" parent="Railroad/PathFollow3D/MeshInstance3D/Player"]
 shape = SubResource("CapsuleShape3D_bo1nx")
 
-[node name="player_mesh" type="MeshInstance3D" parent="Player"]
+[node name="player_mesh" type="MeshInstance3D" parent="Railroad/PathFollow3D/MeshInstance3D/Player"]
 mesh = SubResource("CapsuleMesh_8gbba")
 
-[node name="player_camera" type="Camera3D" parent="Player"]
+[node name="player_camera" type="Camera3D" parent="Railroad/PathFollow3D/MeshInstance3D/Player"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.584973, 0)
-
-[node name="Path3D" type="Path3D" parent="."]
-curve = SubResource("Curve3D_jkdf5")
