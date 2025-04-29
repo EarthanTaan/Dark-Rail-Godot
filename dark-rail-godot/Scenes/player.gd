@@ -4,8 +4,10 @@ const SPEED = 5.0
 const JUMP_VELOCITY = 4.5
 @onready var camera = $player_camera
 @onready var track_switch_lever = false # false = left / true = right
+@onready var train_mover: PathFollow3D = %train_mover
+@onready var testy_body_3d: RigidBody3D = %TestyBody3D
 
-@export var train_speed:float = 1.0
+@export var max_speed:float = 0.25
 @export var pilot_mode:GUIDEMappingContext
 @export var move:GUIDEAction
 @export var look:GUIDEAction
@@ -50,21 +52,21 @@ func control_train():
 		# The following is working. 'W' & 'S' Adjust a throttle variable up and down by an int of 1.
 		if train_throttle.is_triggered():
 			throttle_lever = clampi(throttle_lever + train_throttle.value_axis_1d, 0, 3)
-			# Trying to see if the train_mode movement is actually being mutiplied by the hearbox values, or by zzzzzzzzzzz
-			print("throttle_lever: " + str([throttle_lever]) + 
-			"\nthrottle_settings: " + str(throttle_settings) + 
-			"\ngearbox: " + str(gearbox))
+			# Printing what's going on so I can be sure the mechanics are happening the way I think.
+			print("\nthrottle_setting: " + str(throttle_settings[throttle_lever]) + " " + 
+			"\nSpeed modifier: " + str(max_speed) + " * " + str(gearbox[throttle_settings[throttle_lever]]))
 		# Now I just have to hook that up to an actual engine mechanic.
 		# train_switch_toggle part:
-		# Pressing left-shift will flip the toggle between the left and right positions.
+		# Pressing left-shift will flip the toggle between the left and right positions. (But doesn't do anything yet.)
 		if train_switch_toggle.is_triggered():
 			track_switch_lever = !track_switch_lever
 			match track_switch_lever:
 				false: print("Track Switch: Left")
 				true: print("Track Switch: Right")
 		# train_ebrake part:
-			# Hold space to dramatically decelerate - not sure how to approach this yet.
-		$"../..".progress += train_speed * gearbox[throttle_settings[throttle_lever]]
+		# Hold space to dramatically decelerate - not sure how to approach this yet.
+		train_mover.progress += max_speed * gearbox[throttle_settings[throttle_lever]]
+		testy_body_3d.rotation = Vector3(train_mover.progress * 0.1, train_mover.progress * -0.01, train_mover.progress * 0.001)
 	# Let's make sure the train can't entirely leave the player behind.
 	else: # pilot_mode is NOT enabled:
 		throttle_lever = 1 # Set throttle to neutral.
