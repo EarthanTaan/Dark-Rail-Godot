@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://cv5u1e8bvid36"]
+[gd_scene load_steps=34 format=3 uid="uid://cv5u1e8bvid36"]
 
 [ext_resource type="Material" uid="uid://cwci62bjd4djm" path="res://Materials/ground_texture.tres" id="1_jjgbg"]
 [ext_resource type="Script" uid="uid://bgsv5tx3tqh6d" path="res://Scripts/main.gd" id="1_kry3j"]
@@ -64,6 +64,30 @@ size = Vector3(2, 0.2, 5)
 material = ExtResource("8_jkdf5")
 radial_segments = 8
 rings = 2
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jkdf5"]
+transparency = 1
+shading_mode = 0
+albedo_color = Color(1, 1, 1, 0.627451)
+disable_receive_shadows = true
+
+[sub_resource type="SphereMesh" id="SphereMesh_fdnlq"]
+material = SubResource("StandardMaterial3D_jkdf5")
+flip_faces = true
+radius = 2.0
+height = 4.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fdnlq"]
+transparency = 1
+shading_mode = 0
+albedo_color = Color(1, 1, 1, 0.878431)
+disable_receive_shadows = true
+
+[sub_resource type="SphereMesh" id="SphereMesh_jkdf5"]
+material = SubResource("StandardMaterial3D_fdnlq")
+flip_faces = true
+radius = 50.0
+height = 100.0
 
 [sub_resource type="Curve3D" id="Curve3D_wsu2k"]
 _data = {
@@ -217,7 +241,6 @@ shape = SubResource("SphereShape3D_jkdf5")
 mesh = SubResource("SphereMesh_wsu2k")
 
 [node name="Railroad_A" type="Path3D" parent="."]
-unique_name_in_owner = true
 curve = SubResource("Curve3D_jkdf5")
 
 [node name="Rail_Left" type="CSGPolygon3D" parent="Railroad_A"]
@@ -275,8 +298,13 @@ mesh = SubResource("CapsuleMesh_8gbba")
 [node name="player_camera" type="Camera3D" parent="Railroad_A/train_mover/train_mesh/Player"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.584973, 0)
 
+[node name="visibility_near" type="MeshInstance3D" parent="Railroad_A/train_mover/train_mesh/Player"]
+mesh = SubResource("SphereMesh_fdnlq")
+
+[node name="visibility_far" type="MeshInstance3D" parent="Railroad_A/train_mover/train_mesh/Player"]
+mesh = SubResource("SphereMesh_jkdf5")
+
 [node name="Railroad_B" type="Path3D" parent="."]
-unique_name_in_owner = true
 curve = SubResource("Curve3D_wsu2k")
 
 [node name="Rail_LeftB" type="CSGPolygon3D" parent="Railroad_B"]
@@ -318,3 +346,4 @@ transform = Transform3D(3.945, 0, 0, 0, 3.945, 0, 0, 0, 3.945, 0, 0, 0)
 mesh = SubResource("SphereMesh_k12tt")
 
 [connection signal="body_entered" from="track_switch_1" to="Railroad_A/train_mover" method="_on_track_switch_1_body_entered"]
+[connection signal="body_entered" from="track_switch_1" to="track_switch_1" method="_on_body_entered"]

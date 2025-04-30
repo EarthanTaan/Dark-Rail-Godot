@@ -4,12 +4,12 @@ extends PathFollow3D
 
 @onready var railroad_a: Path3D = $/root/Main/Railroad_A
 @onready var railroad_b: Path3D = $/root/Main/Railroad_B
-
-@onready var track_switch_lever = true # false = left / true = right
+@onready var junc_range:Dictionary = {false : "Left", true : "Right"} # false = left / true = right
+@onready var junc_lever:bool = false
 @onready var weirdo_offset: Node3D = $/root/Main/WeirdoOffset
 @onready var player: CharacterBody3D = $train_mesh/Player
 
-@export var max_speed:float = 0.25 # The train's max speed, upgradable through play.
+@export var max_speed:float = 0.25 # The train's max speed, (future feature: upgradable through play)
 @export var pilot_mode:GUIDEMappingContext
 #@export var move:GUIDEAction # Not using this right now, might delete on a  later pass.
 @export var train_throttle:GUIDEAction
@@ -46,8 +46,8 @@ func control_train():
 	## Train Switch Toggle part:
 	# Pressing left-shift will flip the toggle between the left and right positions. (But doesn't do anything yet.)
 	if train_switch_toggle.is_triggered():
-		track_switch_lever = !track_switch_lever
-		if track_switch_lever: print("Track Switch: Right")
+		junc_lever = !junc_lever
+		if junc_lever: print("Track Switch: Right")
 		else: print("Track Switch: Left")
 		
 	## Train Emergency Brake part:
@@ -59,11 +59,10 @@ func control_train():
 
 ## Now we have signals.
 func _on_track_switch_1_body_entered(body: Node3D) -> void:
-	# Reminder: False = Left | True = Right
-	print("_on_track_switch_1_body_entered : " + str(body.name))
-	if track_switch_lever:
+	# Reminder: Left = False <=|=> True = Right
+	print("A Body entered Track Switch 1: it was " + str(body.name))
+	if junc_lever:
 		reparent(railroad_a)
-		print("track switch was true")
 	else:
 		reparent(railroad_b)
-		print("track switch was false")
+	print("Track Switch was " + str(junc_range[junc_lever]))
