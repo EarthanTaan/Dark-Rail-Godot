@@ -23,19 +23,29 @@ func _ready():
 
 func _input(event):
 	# This lets me recover the mouse cursor while the game is running.
-	if event.is_action_pressed("escape_mouse"):
-		cursor_toggle()
+	#if event.is_action_pressed("capture_mouse"):
+		#Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+		#
+	#if event.is_action_pressed("mouse_release"):
+		#Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+	
+	if event.is_action_pressed("mouse_cap_toggle"):
+		mouse_captured = !mouse_captured
+		if mouse_captured: Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+		else: Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+
+		#cursor_toggle()
 
 #func _process(delta):
 	#if mode_swap.is_triggered(): # Walk mode causing more trouble that it's worth.
 		#swap_modes()
 
 # Define cursor_toggle() function below. This is just to release the mouse while testing.
-func cursor_toggle():
-	if Input.is_action_just_pressed("escape_mouse"):
-		mouse_captured = !mouse_captured
-		if mouse_captured: Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
-		else: Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+#func cursor_toggle():
+	#if Input.is_action_just_pressed("escape_mouse"):
+		#mouse_captured = !mouse_captured
+		#if mouse_captured: Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+		#else: Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 
 # Disabling mode swapping. No walking allowed, for now.
 #func swap_modes():

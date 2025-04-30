@@ -58,11 +58,15 @@ func control_train():
 	weirdo_offset.rotation = Vector3(progress * 0.1, progress * -0.01, progress * 0.001)
 
 ## Now we have signals.
-func _on_track_switch_1_body_entered(body: Node3D) -> void:
-	# Reminder: Left = False <=|=> True = Right
-	print("A Body entered Track Switch 1: it was " + str(body.name))
-	if junc_lever:
-		reparent(railroad_a)
-	else:
-		reparent(railroad_b)
-	print("Track Switch was " + str(junc_range[junc_lever]))
+#func _on_track_switch_1_body_entered(body: Node3D) -> void:
+	## Reminder: Left = False <=|=> True = Right
+	#print("A Body entered Track Switch 1: it was " + str(body.name))
+	#if junc_lever:
+		#reparent(railroad_a)
+	#else:
+		#reparent(railroad_b)
+	#print("Track Switch was " + str(junc_range[junc_lever]))
+
+
+func _on_track_switch_2_body_entered(body: Node3D) -> void:
+	reparent(railroad_a)
