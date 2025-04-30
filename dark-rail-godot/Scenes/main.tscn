@@ -1,16 +1,14 @@
-[gd_scene load_steps=28 format=3 uid="uid://cv5u1e8bvid36"]
+[gd_scene load_steps=30 format=3 uid="uid://cv5u1e8bvid36"]
 
 [ext_resource type="Material" uid="uid://cwci62bjd4djm" path="res://Materials/ground_texture.tres" id="1_jjgbg"]
-[ext_resource type="Script" uid="uid://bgsv5tx3tqh6d" path="res://Scenes/main.gd" id="1_kry3j"]
-[ext_resource type="Resource" uid="uid://dqbpl4tijwajp" path="res://Resources/walk_mode.tres" id="2_21xkr"]
-[ext_resource type="Script" uid="uid://casblof2kjhpc" path="res://Scenes/player.gd" id="2_bo1nx"]
+[ext_resource type="Script" uid="uid://bgsv5tx3tqh6d" path="res://Scripts/main.gd" id="1_kry3j"]
+[ext_resource type="Script" uid="uid://casblof2kjhpc" path="res://Scripts/player.gd" id="2_bo1nx"]
 [ext_resource type="PackedScene" uid="uid://clyhclfq6vqu2" path="res://Scenes/tree.tscn" id="2_jjvhh"]
-[ext_resource type="Resource" uid="uid://bh5fuwlw10asj" path="res://Resources/move.tres" id="3_8gbba"]
 [ext_resource type="Resource" uid="uid://3cpdyogyjj0n" path="res://Resources/shared_context.tres" id="3_344ge"]
 [ext_resource type="Resource" uid="uid://cmq41f5f2aypi" path="res://Resources/pilot_mode.tres" id="4_ynf5e"]
 [ext_resource type="Resource" uid="uid://1abw7cq1blrt" path="res://Resources/look.tres" id="7_6bp64"]
 [ext_resource type="Material" uid="uid://dftm0vd77ggr3" path="res://Materials/ruins_material.tres" id="8_jkdf5"]
-[ext_resource type="Resource" uid="uid://b36sro43erfey" path="res://Resources/mode_swap.tres" id="10_hptm8"]
+[ext_resource type="Script" uid="uid://uy12175ne64y" path="res://Scripts/train_mover.gd" id="10_d1ilt"]
 [ext_resource type="Resource" uid="uid://yxua4hs6lcvp" path="res://Resources/train_throttle.tres" id="11_fdnlq"]
 [ext_resource type="Resource" uid="uid://ddn2rxbx22pps" path="res://Resources/train_ebrake.tres" id="12_jkdf5"]
 [ext_resource type="Resource" uid="uid://d2547rs4ddmf" path="res://Resources/train_switch_toggle.tres" id="13_wsu2k"]
@@ -34,12 +32,19 @@ tonemap_mode = 2
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_0xm2m"]
 material = ExtResource("1_jjgbg")
-size = Vector2(200, 200)
+size = Vector2(500, 500)
 
 [sub_resource type="PrismMesh" id="PrismMesh_fdnlq"]
 material = ExtResource("8_jkdf5")
 left_to_right = 0.8
 size = Vector3(20, 20, 20)
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_jkdf5"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_wsu2k"]
+material = ExtResource("15_wsu2k")
+radial_segments = 10
+rings = 5
 
 [sub_resource type="Curve3D" id="Curve3D_jkdf5"]
 closed = true
@@ -60,19 +65,29 @@ material = ExtResource("8_jkdf5")
 radial_segments = 8
 rings = 2
 
-[sub_resource type="SphereShape3D" id="SphereShape3D_jkdf5"]
+[sub_resource type="Curve3D" id="Curve3D_wsu2k"]
+_data = {
+"points": PackedVector3Array(-37.6913, 0, 5.31046, 37.6913, 0, -5.31046, 7.50404, 0, -89.5618, -10.7601, 0, -7.86314, 10.7601, 0, 7.86314, 59.1674, 0, -92.8898, 0.137955, 0, -20.4166, -0.137955, 0, 20.4166, 61.7215, 0, -51.2294),
+"tilts": PackedFloat32Array(0, 0, 0)
+}
+point_count = 3
 
-[sub_resource type="SphereMesh" id="SphereMesh_wsu2k"]
-material = ExtResource("15_wsu2k")
-radial_segments = 10
-rings = 5
+[sub_resource type="SphereShape3D" id="SphereShape3D_wsu2k"]
+radius = 2.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wsu2k"]
+transparency = 1
+albedo_color = Color(0.458824, 0.992157, 0.827451, 0.211765)
+
+[sub_resource type="SphereMesh" id="SphereMesh_k12tt"]
+material = SubResource("StandardMaterial3D_wsu2k")
 
 [node name="Main" type="Node3D"]
 script = ExtResource("1_kry3j")
-walk_mode = ExtResource("2_21xkr")
 shared_context = ExtResource("3_344ge")
 pilot_mode = ExtResource("4_ynf5e")
-mode_swap = ExtResource("10_hptm8")
+
+[node name="Node3D" type="Node3D" parent="."]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_8gbba")
@@ -83,9 +98,9 @@ shadow_enabled = true
 directional_shadow_max_distance = 10.0
 
 [node name="Ground" type="StaticBody3D" parent="."]
+collision_layer = 0
 
 [node name="ground_collider" type="CollisionShape3D" parent="Ground"]
-visible = false
 shape = SubResource("WorldBoundaryShape3D_jjgbg")
 
 [node name="ground_mesh" type="MeshInstance3D" parent="Ground"]
@@ -188,10 +203,24 @@ skeleton = NodePath("../../root/@EditorNode@21272/@Panel@14/@VBoxContainer@15/Do
 transform = Transform3D(0.629966, 0, -0.327726, 0, 0.4175, 0, 0.703441, 0, 0.293495, -47.3612, 4.03543, 21.1348)
 mesh = SubResource("PrismMesh_fdnlq")
 
-[node name="Railroad" type="Path3D" parent="."]
+[node name="WeirdoOffset" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.76067, 9.57409, -9.62515)
+
+[node name="WeirdoBody3D" type="RigidBody3D" parent="WeirdoOffset"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -8.65386, 0)
+gravity_scale = 0.0
+
+[node name="WeirdoShape3D" type="CollisionShape3D" parent="WeirdoOffset/WeirdoBody3D"]
+shape = SubResource("SphereShape3D_jkdf5")
+
+[node name="WeirdoInstance3D" type="MeshInstance3D" parent="WeirdoOffset/WeirdoBody3D"]
+mesh = SubResource("SphereMesh_wsu2k")
+
+[node name="Railroad_A" type="Path3D" parent="."]
+unique_name_in_owner = true
 curve = SubResource("Curve3D_jkdf5")
 
-[node name="Rail_Left" type="CSGPolygon3D" parent="Railroad"]
+[node name="Rail_Left" type="CSGPolygon3D" parent="Railroad_A"]
 polygon = PackedVector2Array(-1, 0.2, -1, 0.4, -0.9, 0.4, -0.9, 0.2)
 mode = 2
 path_node = NodePath("..")
@@ -205,7 +234,7 @@ path_continuous_u = true
 path_u_distance = 1.0
 path_joined = false
 
-[node name="Rail_Right" type="CSGPolygon3D" parent="Railroad"]
+[node name="Rail_Right" type="CSGPolygon3D" parent="Railroad_A"]
 polygon = PackedVector2Array(1, 0.2, 1, 0.4, 0.9, 0.4, 0.9, 0.2)
 mode = 2
 path_node = NodePath("..")
@@ -219,40 +248,73 @@ path_continuous_u = true
 path_u_distance = 1.0
 path_joined = false
 
-[node name="train_mover" type="PathFollow3D" parent="Railroad"]
+[node name="train_mover" type="PathFollow3D" parent="Railroad_A"]
 unique_name_in_owner = true
-transform = Transform3D(0.333943, 0, -0.942582, 0, 1, 0, 0.942582, 0, 0.333943, -5.66698, 0, -86.0339)
-
-[node name="train_mesh" type="MeshInstance3D" parent="Railroad/train_mover"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
-mesh = SubResource("BoxMesh_jkdf5")
-
-[node name="Player" type="CharacterBody3D" parent="Railroad/train_mover/train_mesh"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.10315, 0)
-script = ExtResource("2_bo1nx")
+transform = Transform3D(0.333941, 0, -0.942578, 0, 1, 0, 0.942578, 0, 0.333941, -5.66698, 0, -86.0339)
+script = ExtResource("10_d1ilt")
 pilot_mode = ExtResource("4_ynf5e")
-move = ExtResource("3_8gbba")
-look = ExtResource("7_6bp64")
 train_throttle = ExtResource("11_fdnlq")
 train_ebrake = ExtResource("12_jkdf5")
 train_switch_toggle = ExtResource("13_wsu2k")
 
-[node name="player_collider" type="CollisionShape3D" parent="Railroad/train_mover/train_mesh/Player"]
+[node name="train_mesh" type="MeshInstance3D" parent="Railroad_A/train_mover"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.0442, 0)
+mesh = SubResource("BoxMesh_jkdf5")
+
+[node name="Player" type="CharacterBody3D" parent="Railroad_A/train_mover/train_mesh"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.10315, 0)
+script = ExtResource("2_bo1nx")
+look = ExtResource("7_6bp64")
+
+[node name="player_collider" type="CollisionShape3D" parent="Railroad_A/train_mover/train_mesh/Player"]
 shape = SubResource("CapsuleShape3D_bo1nx")
 
-[node name="player_mesh" type="MeshInstance3D" parent="Railroad/train_mover/train_mesh/Player"]
+[node name="player_mesh" type="MeshInstance3D" parent="Railroad_A/train_mover/train_mesh/Player"]
 mesh = SubResource("CapsuleMesh_8gbba")
 
-[node name="player_camera" type="Camera3D" parent="Railroad/train_mover/train_mesh/Player"]
+[node name="player_camera" type="Camera3D" parent="Railroad_A/train_mover/train_mesh/Player"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.584973, 0)
 
-[node name="TestyBody3D" type="RigidBody3D" parent="."]
+[node name="Railroad_B" type="Path3D" parent="."]
 unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.76067, 9.57409, -9.62515)
+curve = SubResource("Curve3D_wsu2k")
 
-[node name="TestyShape3D" type="CollisionShape3D" parent="TestyBody3D"]
-shape = SubResource("SphereShape3D_jkdf5")
+[node name="Rail_LeftB" type="CSGPolygon3D" parent="Railroad_B"]
+polygon = PackedVector2Array(-1, 0.2, -1, 0.4, -0.9, 0.4, -0.9, 0.2)
+mode = 2
+path_node = NodePath("..")
+path_interval_type = 0
+path_interval = 1.0
+path_simplify_angle = 0.0
+path_rotation = 2
+path_rotation_accurate = false
+path_local = false
+path_continuous_u = true
+path_u_distance = 1.0
+path_joined = false
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="TestyBody3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 8.46192)
-mesh = SubResource("SphereMesh_wsu2k")
+[node name="Rail_RightB" type="CSGPolygon3D" parent="Railroad_B"]
+polygon = PackedVector2Array(1, 0.2, 1, 0.4, 0.9, 0.4, 0.9, 0.2)
+mode = 2
+path_node = NodePath("..")
+path_interval_type = 0
+path_interval = 1.0
+path_simplify_angle = 0.0
+path_rotation = 2
+path_rotation_accurate = false
+path_local = false
+path_continuous_u = true
+path_u_distance = 1.0
+path_joined = false
+
+[node name="track_switch_1" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.39381, 0.16027, -89.5032)
+
+[node name="switch_det_area" type="CollisionShape3D" parent="track_switch_1"]
+shape = SubResource("SphereShape3D_wsu2k")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="track_switch_1"]
+transform = Transform3D(3.945, 0, 0, 0, 3.945, 0, 0, 0, 3.945, 0, 0, 0)
+mesh = SubResource("SphereMesh_k12tt")
+
+[connection signal="body_entered" from="track_switch_1" to="Railroad_A/train_mover" method="_on_track_switch_1_body_entered"]
