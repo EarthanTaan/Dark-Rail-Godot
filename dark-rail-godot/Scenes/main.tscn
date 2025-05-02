@@ -12,7 +12,7 @@
 [ext_resource type="Resource" uid="uid://yxua4hs6lcvp" path="res://Resources/train_throttle.tres" id="11_fdnlq"]
 [ext_resource type="Resource" uid="uid://ddn2rxbx22pps" path="res://Resources/train_ebrake.tres" id="12_jkdf5"]
 [ext_resource type="Resource" uid="uid://d2547rs4ddmf" path="res://Resources/train_switch_toggle.tres" id="13_wsu2k"]
-[ext_resource type="Script" uid="uid://lv6gvxyx8pn3" path="res://Scripts/track_switch_script.gd" id="14_jkdf5"]
+[ext_resource type="PackedScene" uid="uid://ctj8sx8x8rnfm" path="res://track_switch.tscn" id="14_jkdf5"]
 [ext_resource type="Material" uid="uid://cdl2ui72vv2wm" path="res://Materials/glowball_material.tres" id="15_wsu2k"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_jjgbg"]
@@ -338,16 +338,8 @@ path_continuous_u = true
 path_u_distance = 1.0
 path_joined = false
 
-[node name="track_switch_1" type="Area3D" parent="."]
+[node name="track_switch_1" parent="." instance=ExtResource("14_jkdf5")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.39381, 0.16027, -89.5032)
-script = ExtResource("14_jkdf5")
-
-[node name="switch_det_area" type="CollisionShape3D" parent="track_switch_1"]
-shape = SubResource("SphereShape3D_wsu2k")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="track_switch_1"]
-transform = Transform3D(3.945, 0, 0, 0, 3.945, 0, 0, 0, 3.945, 0, 0, 0)
-mesh = SubResource("SphereMesh_k12tt")
 
 [node name="track_switch_2" type="Area3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 61.7251, 0.16027, -51.0149)
