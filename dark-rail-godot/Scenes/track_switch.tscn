@@ -1,25 +1,20 @@
 [gd_scene load_steps=5 format=3 uid="uid://ctj8sx8x8rnfm"]
 
 [ext_resource type="Script" uid="uid://lv6gvxyx8pn3" path="res://Scripts/track_switch_script.gd" id="1_7cibd"]
+[ext_resource type="Material" uid="uid://cmd0c8kde0ggw" path="res://Materials/debug_vis_mat.tres" id="2_joqka"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_wsu2k"]
 radius = 2.0
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wsu2k"]
-transparency = 1
-albedo_color = Color(0.458824, 0.992157, 0.827451, 0.211765)
-
 [sub_resource type="SphereMesh" id="SphereMesh_k12tt"]
-material = SubResource("StandardMaterial3D_wsu2k")
+material = ExtResource("2_joqka")
 
-[node name="track_switch_1" type="Area3D"]
+[node name="junction" type="Area3D"]
 script = ExtResource("1_7cibd")
 
 [node name="switch_det_area" type="CollisionShape3D" parent="."]
 shape = SubResource("SphereShape3D_wsu2k")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+[node name="debug_vis" type="MeshInstance3D" parent="."]
 transform = Transform3D(3.945, 0, 0, 0, 3.945, 0, 0, 0, 3.945, 0, 0, 0)
 mesh = SubResource("SphereMesh_k12tt")
-
-[connection signal="body_entered" from="." to="." method="_on_body_entered"]

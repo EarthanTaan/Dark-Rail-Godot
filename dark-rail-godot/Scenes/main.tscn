@@ -12,7 +12,7 @@
 [ext_resource type="Resource" uid="uid://yxua4hs6lcvp" path="res://Resources/train_throttle.tres" id="11_fdnlq"]
 [ext_resource type="Resource" uid="uid://ddn2rxbx22pps" path="res://Resources/train_ebrake.tres" id="12_jkdf5"]
 [ext_resource type="Resource" uid="uid://d2547rs4ddmf" path="res://Resources/train_switch_toggle.tres" id="13_wsu2k"]
-[ext_resource type="PackedScene" uid="uid://ctj8sx8x8rnfm" path="res://track_switch.tscn" id="14_jkdf5"]
+[ext_resource type="PackedScene" uid="uid://ctj8sx8x8rnfm" path="res://Scenes/track_switch.tscn" id="14_jkdf5"]
 [ext_resource type="Material" uid="uid://cdl2ui72vv2wm" path="res://Materials/glowball_material.tres" id="15_wsu2k"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_jjgbg"]
