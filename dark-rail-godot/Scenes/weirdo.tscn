@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://bu6i65epidnpv"]
+
+[ext_resource type="Material" uid="uid://cdl2ui72vv2wm" path="res://Materials/glowball_material.tres" id="1_jldb6"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_jkdf5"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_wsu2k"]
+material = ExtResource("1_jldb6")
+radial_segments = 10
+rings = 5
+
+[node name="Weirdo" type="Node3D"]
+
+[node name="WeirdoBody3D" type="RigidBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -8.65386, 0)
+gravity_scale = 0.0
+
+[node name="WeirdoShape3D" type="CollisionShape3D" parent="WeirdoBody3D"]
+shape = SubResource("SphereShape3D_jkdf5")
+
+[node name="WeirdoInstance3D" type="MeshInstance3D" parent="WeirdoBody3D"]
+mesh = SubResource("SphereMesh_wsu2k")

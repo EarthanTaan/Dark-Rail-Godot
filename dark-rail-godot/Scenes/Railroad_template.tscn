@@ -1,0 +1,33 @@
+[gd_scene format=3 uid="uid://bgtwd12pl561j"]
+
+[node name="Railroad" type="Path3D"]
+
+[node name="Rails" type="Node" parent="."]
+
+[node name="Rail_Left" type="CSGPolygon3D" parent="Rails"]
+polygon = PackedVector2Array(-1, 0.2, -1, 0.4, -0.9, 0.4, -0.9, 0.2)
+mode = 2
+path_node = NodePath("../..")
+path_interval_type = 0
+path_interval = 1.0
+path_simplify_angle = 0.0
+path_rotation = 2
+path_rotation_accurate = false
+path_local = false
+path_continuous_u = true
+path_u_distance = 1.0
+path_joined = false
+
+[node name="Rail_Right" type="CSGPolygon3D" parent="Rails"]
+polygon = PackedVector2Array(1, 0.2, 1, 0.4, 0.9, 0.4, 0.9, 0.2)
+mode = 2
+path_node = NodePath("../..")
+path_interval_type = 0
+path_interval = 1.0
+path_simplify_angle = 0.0
+path_rotation = 2
+path_rotation_accurate = false
+path_local = false
+path_continuous_u = true
+path_u_distance = 1.0
+path_joined = false

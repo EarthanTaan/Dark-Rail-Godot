@@ -1,0 +1,45 @@
+[gd_scene load_steps=8 format=3 uid="uid://ctj8sx8x8rnfm"]
+
+[ext_resource type="Script" uid="uid://bpusrrfrbk242" path="res://Scripts/junction_scene.gd" id="1_iivff"]
+[ext_resource type="Material" uid="uid://kisjp8nq0360" path="res://Materials/preswitch_debug_mat.tres" id="2_je7mr"]
+[ext_resource type="Material" uid="uid://cmd0c8kde0ggw" path="res://Materials/debug_vis_mat.tres" id="2_xqfnk"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_xqfnk"]
+radius = 2.0
+
+[sub_resource type="SphereMesh" id="SphereMesh_k12tt"]
+material = ExtResource("2_xqfnk")
+radius = 2.0
+height = 4.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_wsu2k"]
+radius = 2.0
+
+[sub_resource type="SphereMesh" id="SphereMesh_xqfnk"]
+material = ExtResource("2_je7mr")
+radius = 2.0
+height = 4.0
+
+[node name="junction_scene" type="Area3D"]
+script = ExtResource("1_iivff")
+
+[node name="switch_det_area" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_xqfnk")
+debug_color = Color(0.283235, 0.722568, 0.60417, 0.42)
+
+[node name="debug_vis" type="MeshInstance3D" parent="."]
+mesh = SubResource("SphereMesh_k12tt")
+
+[node name="preswitch" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 5)
+
+[node name="preswitch_det_area" type="CollisionShape3D" parent="preswitch"]
+shape = SubResource("SphereShape3D_wsu2k")
+debug_color = Color(0.770153, 0.389789, 0.568029, 0.42)
+
+[node name="preswitch_debug_vis" type="MeshInstance3D" parent="preswitch"]
+mesh = SubResource("SphereMesh_xqfnk")
+skeleton = NodePath("../..")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_entered" from="preswitch" to="." method="_on_preswitch_body_entered"]

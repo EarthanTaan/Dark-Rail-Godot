@@ -25,7 +25,6 @@ func _physics_process(delta):
 	# Disabling walk controls until I can make them behave (or indefinitely).
 	#velocity = basis * move.value_axis_3d * SPEED
 	
-	# Call functions here.
 	control_train() # Control the train when train-context is enabled.
 
 
@@ -54,11 +53,14 @@ func control_train():
 	# Hold spacebar to dramatically decelerate - not sure how to approach this yet.
 	#if train_ebrake.is_ongoing(): # ...something something...
 		#pass
+	
+	# This is the part that actually moves the train around the track.
 	progress += max_speed * gearbox[throttle_settings[throttle_lever]]
-	weirdo_offset.rotation = Vector3(progress * 0.1, progress * -0.01, progress * 0.001)
 
-# Now we have signals.
-#func _on_track_switch_1_body_entered(body: Node3D) -> void:
+# Now we have signals:
+
+#Probably going to delete this soon, as I'll be executing the track switch inside the junction.
+#func WARNING: busted signal line on_body_entered(body: Node3D) -> void:
 	## Reminder: Left = False <=|=> True = Right
 	#print("A Body entered Track Switch 1: it was " + str(body.name))
 	#if junc_lever:
