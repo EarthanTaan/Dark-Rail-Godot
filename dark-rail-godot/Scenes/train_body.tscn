@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://dw74k0ycc8mya"]
+
+[ext_resource type="Script" uid="uid://cskbwjo0wydq0" path="res://Scripts/train_body.gd" id="1_hxol7"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_jkdf5"]
+size = Vector3(2, 0.2, 5)
+
+[sub_resource type="BoxMesh" id="BoxMesh_jkdf5"]
+size = Vector3(2, 0.2, 5)
+
+[node name="train_body" type="CharacterBody3D"]
+script = ExtResource("1_hxol7")
+
+[node name="train_shape" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_jkdf5")
+
+[node name="train_mesh" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_jkdf5")
+skeleton = NodePath("../..")

@@ -22,6 +22,7 @@ extends PathFollow3D
 const gearbox = {"Fast Reverse": -2, "Slow Reverse": -0.5, "Neutral": 0, "Slow Forward": 0.5, "Accelerate": 2}
 var throttle_settings:Array = gearbox.keys() # This is now 0-3 & mapped to the key-words above.
 @onready var throttle_lever:int =  throttle_settings.find("Neutral") # Starting it in Neutral.
+var movement:float = 0
 #endregion
 
 func _physics_process(delta):	
@@ -40,9 +41,10 @@ func control_train():
 		throttle_lever = clampi(throttle_lever + train_throttle.value_axis_1d, 0, gearbox.size()-1)
 		# Printing what's going on so I can be sure the mechanics are happening the way I think.
 		print("\nthrottle_setting: [" + str(throttle_settings[throttle_lever]) + "].")
+		movement = gearbox[throttle_settings[throttle_lever]]
 
 	## Junction Toggle part:
-	# Pressing left-shift will flip the toggle between the left and right positions. (But doesn't do anything yet.)
+	# Pressing left-shift will flip the toggle between the left and right positions. (But doesn't do anything yet.)		
 	if junction_toggle.is_triggered():
 		junc_lever = !junc_lever
 		if junc_lever: print("Track Switch: Right. [junc_lever == " + str(junc_lever) + "].")
@@ -54,8 +56,8 @@ func control_train():
 		#pass
 	
 	# This is the part that actually moves the train around the track.
-	progress += max_speed * gearbox[throttle_settings[throttle_lever]]
-	print("Progress: [" + str(progress) + "]")
+	progress += max_speed * movement
+	
 	
 # Now we have signals:
 

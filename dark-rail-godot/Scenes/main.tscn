@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://cv5u1e8bvid36"]
+[gd_scene load_steps=19 format=3 uid="uid://cv5u1e8bvid36"]
 
 [ext_resource type="Material" uid="uid://cwci62bjd4djm" path="res://Materials/ground_texture.tres" id="1_jjgbg"]
 [ext_resource type="Script" uid="uid://bgsv5tx3tqh6d" path="res://Scripts/main.gd" id="1_kry3j"]
@@ -8,6 +8,7 @@
 [ext_resource type="Material" uid="uid://dftm0vd77ggr3" path="res://Materials/ruins_material.tres" id="8_jkdf5"]
 [ext_resource type="Curve3D" uid="uid://cr3txx8k0ismp" path="res://Resources/first_railroad_spline.tres" id="9_hptm8"]
 [ext_resource type="PackedScene" uid="uid://cf56wfdqgiqfx" path="res://Scenes/train.tscn" id="10_d1ilt"]
+[ext_resource type="PackedScene" uid="uid://dw74k0ycc8mya" path="res://Scenes/train_body.tscn" id="11_d1ilt"]
 [ext_resource type="PackedScene" uid="uid://bgtwd12pl561j" path="res://Scenes/Railroad_template.tscn" id="13_jkdf5"]
 [ext_resource type="PackedScene" uid="uid://ctj8sx8x8rnfm" path="res://Scenes/Junction_Scene.tscn" id="14_jkdf5"]
 
@@ -162,7 +163,7 @@ skeleton = NodePath("../../root/@EditorNode@21272/@Panel@14/@VBoxContainer@15/Do
 transform = Transform3D(0.629966, 0, -0.327726, 0, 0.4175, 0, 0.703441, 0, 0.293495, -47.3612, 4.03543, 21.1348)
 mesh = SubResource("PrismMesh_fdnlq")
 
-[node name="junction" parent="." node_paths=PackedStringArray("track_L", "track_R", "track_merge") instance=ExtResource("14_jkdf5")]
+[node name="junction0" parent="." node_paths=PackedStringArray("track_L", "track_R", "track_merge") instance=ExtResource("14_jkdf5")]
 transform = Transform3D(0.217752, 0, -0.976004, 0, 1, 0, 0.976004, 0, 0.217752, 12.3316, 0, -90.4548)
 track_L = NodePath("../Railroad_B")
 track_R = NodePath("../Railroad_A")
@@ -171,11 +172,21 @@ track_merge = NodePath("../Railroad_A")
 [node name="Railroad_A" parent="." instance=ExtResource("13_jkdf5")]
 curve = ExtResource("9_hptm8")
 
-[node name="Train" parent="Railroad_A" instance=ExtResource("10_d1ilt")]
+[node name="train" parent="Railroad_A" instance=ExtResource("10_d1ilt")]
 unique_name_in_owner = true
-transform = Transform3D(0.333937, 0, -0.942567, 0, 1, 0, 0.942567, 0, 0.333937, -5.66698, 0, -86.0339)
-cubic_interp = false
+transform = Transform3D(0.333946, 0, -0.942592, 0, 1, 0, 0.942592, 0, 0.333946, -5.66698, 0, -86.0339)
 
 [node name="Railroad_B" parent="." instance=ExtResource("13_jkdf5")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 55.8186, 0, -88.7741)
 curve = SubResource("Curve3D_wsu2k")
+
+[node name="train_body" parent="." node_paths=PackedStringArray("train") instance=ExtResource("11_d1ilt")]
+train = NodePath("../Railroad_A/train")
+
+[node name="junction1" parent="." node_paths=PackedStringArray("track_L", "track_R", "track_merge") instance=ExtResource("14_jkdf5")]
+transform = Transform3D(0.998503, 0, 0.0546888, 0, 1, 0, -0.0546888, 0, 0.998503, 61.3337, 0, -62.1655)
+track_L = NodePath("../Railroad_A")
+track_R = NodePath("../Railroad_B")
+track_merge = NodePath("../Railroad_A")
+
+[editable path="Railroad_A/train"]
