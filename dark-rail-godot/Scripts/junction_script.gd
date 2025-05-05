@@ -27,13 +27,13 @@ func _on_junction_body_entered(body: Node3D) -> void:
 		if !train.junc_lever: # false, aka Left
 			if train.movement < 0: # moving backwards
 				train.reparent(track_R)
-			else:
+			else: # moving forwward
 				train.reparent(track_L)
 			print(str(body.name) + " reparented to [" + str(track_L.name) + "], which should be the Left Track. train.junc_lever is [" + str(train.junc_lever) + "].")
-		else:				# true, aka Right
+		else: # true, aka Right
 			if train.movement < 0: # moving backwards
 				train.reparent(track_L)
-			else:
+			else: # moving forward
 				train.reparent(track_R)
 			print(str(body.name) + "reparented to [" + str(track_R.name) + "] which should be the Right Track. train.junc_lever is [" + str(train.junc_lever) + "].")
 		print("switch_look is now [" + str(switch_look) + "].")
@@ -41,6 +41,7 @@ func _on_junction_body_entered(body: Node3D) -> void:
 	elif !switch_look:
 		train.reparent(track_merge)
 		print("Merged to track [" + str(track_merge.name) + "]. train.junc_lever == [" + str(train.junc_lever) + "].")
+	train.progress = train.get_parent_node_3d().curve.get_closest_offset(train.position)
 
 
 func _on_junction_body_exited(body: Node3D = train) -> void:

@@ -174,7 +174,8 @@ curve = ExtResource("9_hptm8")
 
 [node name="train" parent="Railroad_A" instance=ExtResource("10_d1ilt")]
 unique_name_in_owner = true
-transform = Transform3D(0.333946, 0, -0.942592, 0, 1, 0, 0.942592, 0, 0.333946, -5.66698, 0, -86.0339)
+transform = Transform3D(-0.999475, 0, 0.0323066, 0, 1, 0, -0.0323066, 0, -0.999475, 61.5003, 0, -42.8971)
+progress = 100.95
 
 [node name="Railroad_B" parent="." instance=ExtResource("13_jkdf5")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 55.8186, 0, -88.7741)
