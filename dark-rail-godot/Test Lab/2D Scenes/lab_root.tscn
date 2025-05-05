@@ -1,0 +1,42 @@
+[gd_scene load_steps=7 format=3 uid="uid://jouup4pppi4p"]
+
+[ext_resource type="PackedScene" uid="uid://xlbuln16eu4b" path="res://Test Lab/2D Scenes/test_player.tscn" id="1_dem1f"]
+[ext_resource type="PackedScene" uid="uid://5ha8t53htquc" path="res://Test Lab/2D Scenes/test_collectible.tscn" id="3_22mve"]
+[ext_resource type="PackedScene" uid="uid://cyi65628njfgv" path="res://Test Lab/2D Scenes/collision_zone.tscn" id="4_f718e"]
+[ext_resource type="Texture2D" uid="uid://blgjue2h41t52" path="res://icon.svg" id="4_rf27d"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rf27d"]
+size = Vector2(1180, 246)
+
+[sub_resource type="QuadMesh" id="QuadMesh_bvbmd"]
+size = Vector2(1.855, 1.49)
+
+[node name="Node2D" type="Node2D"]
+
+[node name="floor" type="StaticBody2D" parent="."]
+position = Vector2(585, 597)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="floor"]
+position = Vector2(-20, 13)
+shape = SubResource("RectangleShape2D_rf27d")
+
+[node name="MeshInstance2D" type="MeshInstance2D" parent="floor"]
+position = Vector2(-20, 13)
+scale = Vector2(656.604, 159.06)
+mesh = SubResource("QuadMesh_bvbmd")
+texture = ExtResource("4_rf27d")
+
+[node name="CharacterBody2D" parent="." instance=ExtResource("1_dem1f")]
+position = Vector2(184, 305)
+
+[node name="collectible" parent="." instance=ExtResource("3_22mve")]
+position = Vector2(586, 413)
+
+[node name="collectible2" parent="." instance=ExtResource("3_22mve")]
+position = Vector2(804, 415)
+
+[node name="collectible3" parent="." instance=ExtResource("3_22mve")]
+position = Vector2(1010, 408)
+
+[node name="collision_zone" parent="." instance=ExtResource("4_f718e")]
+position = Vector2(597, 232)

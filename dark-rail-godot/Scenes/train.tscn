@@ -4,7 +4,7 @@
 [ext_resource type="Resource" uid="uid://cmq41f5f2aypi" path="res://Resources/pilot_mode.tres" id="2_hca7k"]
 [ext_resource type="Resource" uid="uid://yxua4hs6lcvp" path="res://Resources/train_throttle.tres" id="3_v6ueu"]
 [ext_resource type="Resource" uid="uid://ddn2rxbx22pps" path="res://Resources/train_ebrake.tres" id="4_c3iy5"]
-[ext_resource type="Resource" uid="uid://d2547rs4ddmf" path="res://Resources/train_switch_toggle.tres" id="5_8c4pl"]
+[ext_resource type="Resource" uid="uid://d2547rs4ddmf" path="res://Resources/junction_toggle.tres" id="5_i3m7v"]
 [ext_resource type="Script" uid="uid://d1hljt8m4t1pe" path="res://Scripts/player_camera.gd" id="6_i3m7v"]
 [ext_resource type="Resource" uid="uid://1abw7cq1blrt" path="res://Resources/look.tres" id="7_ki1yx"]
 
@@ -19,7 +19,7 @@ script = ExtResource("1_obn5x")
 pilot_mode = ExtResource("2_hca7k")
 train_throttle = ExtResource("3_v6ueu")
 train_ebrake = ExtResource("4_c3iy5")
-train_switch_toggle = ExtResource("5_8c4pl")
+junction_toggle = ExtResource("5_i3m7v")
 
 [node name="train_body" type="CharacterBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.0442, 0)

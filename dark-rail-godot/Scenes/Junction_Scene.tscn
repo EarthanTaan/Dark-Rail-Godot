@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=3 uid="uid://ctj8sx8x8rnfm"]
 
-[ext_resource type="Script" uid="uid://bpusrrfrbk242" path="res://Scripts/junction_scene.gd" id="1_iivff"]
+[ext_resource type="Script" uid="uid://dwh136ix4m366" path="res://Scripts/junction_script.gd" id="1_iivff"]
 [ext_resource type="Material" uid="uid://kisjp8nq0360" path="res://Materials/preswitch_debug_mat.tres" id="2_je7mr"]
 [ext_resource type="Material" uid="uid://cmd0c8kde0ggw" path="res://Materials/debug_vis_mat.tres" id="2_xqfnk"]
 
@@ -20,15 +20,18 @@ material = ExtResource("2_je7mr")
 radius = 2.0
 height = 4.0
 
-[node name="junction_scene" type="Area3D"]
+[node name="junction_scene" type="Node3D"]
 script = ExtResource("1_iivff")
 
-[node name="switch_det_area" type="CollisionShape3D" parent="."]
+[node name="junction" type="Area3D" parent="."]
+
+[node name="switch_det_area" type="CollisionShape3D" parent="junction"]
 shape = SubResource("SphereShape3D_xqfnk")
 debug_color = Color(0.283235, 0.722568, 0.60417, 0.42)
 
-[node name="debug_vis" type="MeshInstance3D" parent="."]
+[node name="debug_vis" type="MeshInstance3D" parent="junction"]
 mesh = SubResource("SphereMesh_k12tt")
+skeleton = NodePath("../../root/@EditorNode@21272/@Panel@14/@VBoxContainer@15/DockHSplitLeftL/DockHSplitLeftR/DockHSplitMain/@VBoxContainer@26/DockVSplitCenter/@VSplitContainer@54/@VBoxContainer@55/@EditorMainScreen@102/MainScreen/@CanvasItemEditor@11482/@VSplitContainer@11134/@HSplitContainer@11136/@HSplitContainer@11138/@Control@11139/@SubViewportContainer@11140/@SubViewport@11141/junction_scene")
 
 [node name="preswitch" type="Area3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 5)
@@ -41,5 +44,6 @@ debug_color = Color(0.770153, 0.389789, 0.568029, 0.42)
 mesh = SubResource("SphereMesh_xqfnk")
 skeleton = NodePath("../..")
 
-[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_entered" from="junction" to="." method="_on_junction_body_entered"]
+[connection signal="body_exited" from="junction" to="." method="_on_junction_body_exited"]
 [connection signal="body_entered" from="preswitch" to="." method="_on_preswitch_body_entered"]

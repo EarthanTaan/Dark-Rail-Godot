@@ -38,7 +38,7 @@ size = Vector3(20, 20, 20)
 
 [sub_resource type="Curve3D" id="Curve3D_wsu2k"]
 _data = {
-"points": PackedVector3Array(-13.1656, 0, 1.49044, 13.1656, 0, -1.49044, -43.5354, 0, -1.56336, -10.5987, 0, -6.9554, 10.5987, 0, 6.9554, -4.36988, 0, -1.44797, -1.90446, 0, -11.0955, 1.90446, 0, 11.0955, 5.51012, 0, 27.874),
+"points": PackedVector3Array(-12.9652, 0, 3.40861, 12.9652, 0, -3.40861, -50.7275, 0, -0.268412, -10.5987, 0, -6.9554, 10.5987, 0, 6.9554, -4.36988, 0, -1.44797, -1.90446, 0, -11.0955, 1.90446, 0, 11.0955, 5.51012, 0, 27.874),
 "tilts": PackedFloat32Array(0, 0, 0)
 }
 point_count = 3
@@ -173,7 +173,8 @@ curve = ExtResource("9_hptm8")
 
 [node name="Train" parent="Railroad_A" instance=ExtResource("10_d1ilt")]
 unique_name_in_owner = true
-transform = Transform3D(0.333941, 0, -0.942577, 0, 1, 0, 0.942577, 0, 0.333941, -5.66698, 0, -86.0339)
+transform = Transform3D(0.333937, 0, -0.942567, 0, 1, 0, 0.942567, 0, 0.333937, -5.66698, 0, -86.0339)
+cubic_interp = false
 
 [node name="Railroad_B" parent="." instance=ExtResource("13_jkdf5")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 55.8186, 0, -88.7741)

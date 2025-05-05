@@ -1,6 +1,6 @@
 extends Node3D
 
-# Introduce the GUIDE mapping contexts.
+# Irrelevant walk-mode stuff.
 #@export var walk_mode:GUIDEMappingContext #Disabled, no walk mode, maybe ever.
 @export var shared_context:GUIDEMappingContext
 @export var pilot_mode:GUIDEMappingContext
@@ -22,13 +22,7 @@ func _ready():
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
 func _input(event):
-	# This lets me recover the mouse cursor while the game is running.
-	#if event.is_action_pressed("capture_mouse"):
-		#Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
-		#
-	#if event.is_action_pressed("mouse_release"):
-		#Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
-	
+	# This lets me recover the mouse cursor while the game is running.	
 	if event.is_action_pressed("mouse_cap_toggle"):
 		mouse_captured = !mouse_captured
 		if mouse_captured: Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
