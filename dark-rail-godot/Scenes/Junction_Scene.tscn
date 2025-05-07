@@ -1,6 +1,6 @@
-[gd_scene load_steps=8 format=3 uid="uid://ctj8sx8x8rnfm"]
+[gd_scene load_steps=11 format=3 uid="uid://ctj8sx8x8rnfm"]
 
-[ext_resource type="Script" uid="uid://dwh136ix4m366" path="res://Scripts/junction_script.gd" id="1_iivff"]
+[ext_resource type="Script" uid="uid://cbqmsw4el706d" path="res://Scripts/junction_scene.gd" id="1_iivff"]
 [ext_resource type="Material" uid="uid://kisjp8nq0360" path="res://Materials/preswitch_debug_mat.tres" id="2_je7mr"]
 [ext_resource type="Material" uid="uid://cmd0c8kde0ggw" path="res://Materials/debug_vis_mat.tres" id="2_xqfnk"]
 
@@ -20,12 +20,39 @@ material = ExtResource("2_je7mr")
 radius = 2.0
 height = 4.0
 
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_iivff"]
+height = 4.105
+radius = 4.595
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_h73ye"]
+transparency = 1
+shading_mode = 2
+diffuse_mode = 3
+specular_mode = 1
+albedo_color = Color(1, 1, 1, 0.0784314)
+emission_enabled = true
+emission = Color(0.745098, 0.988235, 0.909804, 1)
+emission_energy_multiplier = 0.5
+rim_tint = 0.8
+heightmap_scale = 7.462
+heightmap_deep_parallax = true
+heightmap_min_layers = 8
+heightmap_max_layers = 32
+refraction_scale = 0.07
+grow_amount = 1.055
+proximity_fade_distance = 0.01
+
+[sub_resource type="SphereMesh" id="SphereMesh_p3lij"]
+material = SubResource("StandardMaterial3D_h73ye")
+radius = 4.6
+height = 4.085
+
 [node name="junction_scene" type="Node3D"]
 script = ExtResource("1_iivff")
 
 [node name="junction" type="Area3D" parent="."]
 
-[node name="switch_det_area" type="CollisionShape3D" parent="junction"]
+[node name="switch_det_shape" type="CollisionShape3D" parent="junction"]
 shape = SubResource("SphereShape3D_xqfnk")
 debug_color = Color(0.283235, 0.722568, 0.60417, 0.42)
 
@@ -36,7 +63,7 @@ skeleton = NodePath("../../root/@EditorNode@21272/@Panel@14/@VBoxContainer@15/Do
 [node name="preswitch" type="Area3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 5)
 
-[node name="preswitch_det_area" type="CollisionShape3D" parent="preswitch"]
+[node name="preswitch_det_shape" type="CollisionShape3D" parent="preswitch"]
 shape = SubResource("SphereShape3D_wsu2k")
 debug_color = Color(0.770153, 0.389789, 0.568029, 0.42)
 
@@ -44,6 +71,18 @@ debug_color = Color(0.770153, 0.389789, 0.568029, 0.42)
 mesh = SubResource("SphereMesh_xqfnk")
 skeleton = NodePath("../..")
 
+[node name="exit_zone" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2.5)
+
+[node name="exit_det_shape" type="CollisionShape3D" parent="exit_zone"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.024292, 0, 0.0315857)
+shape = SubResource("CylinderShape3D_iivff")
+
+[node name="exit_debug_vis" type="MeshInstance3D" parent="exit_zone"]
+visible = false
+mesh = SubResource("SphereMesh_p3lij")
+
 [connection signal="body_entered" from="junction" to="." method="_on_junction_body_entered"]
 [connection signal="body_exited" from="junction" to="." method="_on_junction_body_exited"]
 [connection signal="body_entered" from="preswitch" to="." method="_on_preswitch_body_entered"]
+[connection signal="body_exited" from="exit_zone" to="." method="_on_exit_zone_body_exited"]

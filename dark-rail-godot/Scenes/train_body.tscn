@@ -1,12 +1,15 @@
-[gd_scene load_steps=4 format=3 uid="uid://dw74k0ycc8mya"]
+[gd_scene load_steps=5 format=3 uid="uid://dw74k0ycc8mya"]
 
 [ext_resource type="Script" uid="uid://cskbwjo0wydq0" path="res://Scripts/train_body.gd" id="1_hxol7"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_jkdf5"]
-size = Vector3(2, 0.2, 5)
+size = Vector3(2, 0.2, 4)
 
 [sub_resource type="BoxMesh" id="BoxMesh_jkdf5"]
-size = Vector3(2, 0.2, 5)
+size = Vector3(2, 0.2, 2)
+
+[sub_resource type="PrismMesh" id="PrismMesh_vl7ce"]
+size = Vector3(2.76, 2, 0.2)
 
 [node name="train_body" type="CharacterBody3D"]
 script = ExtResource("1_hxol7")
@@ -14,6 +17,12 @@ script = ExtResource("1_hxol7")
 [node name="train_shape" type="CollisionShape3D" parent="."]
 shape = SubResource("BoxShape3D_jkdf5")
 
-[node name="train_mesh" type="MeshInstance3D" parent="."]
+[node name="train_mesh_butt" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1)
 mesh = SubResource("BoxMesh_jkdf5")
+skeleton = NodePath("../..")
+
+[node name="train_mesh_arrowhead" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, -1)
+mesh = SubResource("PrismMesh_vl7ce")
 skeleton = NodePath("../..")

@@ -7,6 +7,7 @@ extends Node3D
 
 # Start with the mouse captured by default.
 @onready var mouse_captured = true
+@onready var junctions_on:bool = true
 
 # The following concerns walk mode and mode swapping, now irrelevant.
 ## "T" key toggles control modes between walk and pilot mapping contexts.
@@ -30,9 +31,6 @@ func _input(event):
 
 		#cursor_toggle()
 
-#func _process(delta):
-	#if mode_swap.is_triggered(): # Walk mode causing more trouble that it's worth.
-		#swap_modes()
 
 # Define cursor_toggle() function below. This is just to release the mouse while testing.
 #func cursor_toggle():

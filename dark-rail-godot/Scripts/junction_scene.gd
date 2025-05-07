@@ -1,0 +1,1 @@
+extends junction_class_script

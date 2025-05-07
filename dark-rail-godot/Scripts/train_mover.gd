@@ -27,8 +27,7 @@ var movement:float = 0
 
 func _physics_process(delta):	
 	control_train() # Control the train when train-context is enabled.
-
-
+	
 # NOTE: Define functions below here.
 
 # Train controls.
