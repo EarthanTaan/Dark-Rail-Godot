@@ -19,3 +19,5 @@ junction_toggle = ExtResource("5_i3m7v")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.73232, 0)
 script = ExtResource("6_i3m7v")
 look = ExtResource("7_ki1yx")
+
+[node name="RemoteTransform3D" type="RemoteTransform3D" parent="."]

@@ -51,6 +51,7 @@ height = 4.085
 script = ExtResource("1_iivff")
 
 [node name="junction" type="Area3D" parent="."]
+transform = Transform3D(0.340679, 0, 0, 0, 0.340679, 0, 0, 0, 0.340679, 0, 0, 0)
 
 [node name="switch_det_shape" type="CollisionShape3D" parent="junction"]
 shape = SubResource("SphereShape3D_xqfnk")
@@ -68,6 +69,7 @@ shape = SubResource("SphereShape3D_wsu2k")
 debug_color = Color(0.770153, 0.389789, 0.568029, 0.42)
 
 [node name="preswitch_debug_vis" type="MeshInstance3D" parent="preswitch"]
+visible = false
 mesh = SubResource("SphereMesh_xqfnk")
 skeleton = NodePath("../..")
 
