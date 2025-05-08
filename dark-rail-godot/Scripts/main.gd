@@ -8,6 +8,8 @@ extends Node3D
 # Start with the mouse captured by default.
 @onready var mouse_captured = true
 @onready var junctions_on:bool = true
+@onready var train:PathFollow3D = %train
+@onready var current_curve:Curve3D = train.get_parent_node_3d().curve
 
 # The following concerns walk mode and mode swapping, now irrelevant.
 ## "T" key toggles control modes between walk and pilot mapping contexts.
@@ -21,7 +23,9 @@ func _ready():
 	GUIDE.enable_mapping_context(shared_context)
 	
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
-
+	
+	print(current_curve.sample_baked_with_rotation(0, true).basis)
+	
 func _input(event):
 	# This lets me recover the mouse cursor while the game is running.	
 	if event.is_action_pressed("mouse_cap_toggle"):

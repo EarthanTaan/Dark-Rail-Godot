@@ -58,14 +58,3 @@ func control_train():
 	progress += max_speed * movement
 	
 	
-# Now we have signals:
-
-#Probably going to delete this soon, as I'll be executing the track switch inside the junction.
-#func WARNING: busted signal line on_body_entered(body: Node3D) -> void:
-	## Reminder: Left = False <=|=> True = Right
-	#print("A Body entered Track Switch 1: it was " + str(body.name))
-	#if junc_lever:
-		#reparent(railroad_a)
-	#else:
-		#reparent(railroad_b)
-	#print("Track Switch was " + str(junc_range[junc_lever]))
