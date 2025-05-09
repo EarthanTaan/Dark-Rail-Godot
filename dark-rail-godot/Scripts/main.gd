@@ -23,9 +23,7 @@ func _ready():
 	GUIDE.enable_mapping_context(shared_context)
 	
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
-	
-	print(current_curve.sample_baked_with_rotation(0, true).basis)
-	
+		
 func _input(event):
 	# This lets me recover the mouse cursor while the game is running.	
 	if event.is_action_pressed("mouse_cap_toggle"):

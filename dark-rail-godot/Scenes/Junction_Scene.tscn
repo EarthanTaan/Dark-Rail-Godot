@@ -51,7 +51,6 @@ height = 4.085
 script = ExtResource("1_iivff")
 
 [node name="junction" type="Area3D" parent="."]
-transform = Transform3D(0.340679, 0, 0, 0, 0.340679, 0, 0, 0, 0.340679, 0, 0, 0)
 
 [node name="switch_det_shape" type="CollisionShape3D" parent="junction"]
 shape = SubResource("SphereShape3D_xqfnk")

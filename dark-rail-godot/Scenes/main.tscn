@@ -38,6 +38,7 @@ left_to_right = 0.8
 size = Vector3(20, 20, 20)
 
 [sub_resource type="Curve3D" id="Curve3D_6iyac"]
+bake_interval = 0.01
 _data = {
 "points": PackedVector3Array(-12.9652, 0, 3.40861, 12.9652, 0, -3.40861, -50.7275, 0, -0.268412, -10.5987, 0, -6.9554, 10.5987, 0, 6.9554, -4.36988, 0, -1.44797, -0.967, 0, -16.276, 0, 0, 0, 5.76895, 0, 30.9957),
 "tilts": PackedFloat32Array(0, 0, 0)
@@ -45,13 +46,15 @@ _data = {
 point_count = 3
 
 [sub_resource type="Curve3D" id="Curve3D_d1ilt"]
+bake_interval = 0.01
 _data = {
-"points": PackedVector3Array(0.615124, 0, -21.7344, -0.615124, 0, 21.7344, 61.2965, 0, -35.3276, 22.7338, 0, 11.2963, -22.7338, 0, -11.2963, 27.718, 0, -18.1991, 12.1435, 0, 6.63657, -12.1435, 0, -6.63657, -16.4788, 0, -41.9213, -15.3564, 0, 13.9748, 15.3564, 0, -13.9748, -25.9609, 0, -75.6786),
+"points": PackedVector3Array(12.1435, 0, 6.63657, -0.615124, 0, 21.7344, 61.2965, 0, -35.3276, 22.7338, 0, 11.2963, -22.7338, 0, -11.2963, 27.718, 0, -18.1991, 12.1435, 0, 6.63657, -12.1435, 0, -6.63657, -16.4788, 0, -41.9213, -15.3564, 0, 13.9748, 0, 0, 0, -25.4112, 0, -76.1227),
 "tilts": PackedFloat32Array(0, 0, 0, 0)
 }
 point_count = 4
 
 [sub_resource type="Curve3D" id="Curve3D_fdnlq"]
+bake_interval = 0.01
 _data = {
 "points": PackedVector3Array(39.0523, 0, -16.8587, -39.0523, 0, 16.8587, 25.2725, 0, 1.43841, 5.48453, 0, 14.4205, -5.48453, 0, -14.4205, -48.5042, 0, -17.2854, 37.161, 0, 32.629, -37.1605, -1.96403, -32.6292, -64.7603, 0, -90.0629),
 "tilts": PackedFloat32Array(0, 0, 0)
@@ -186,7 +189,8 @@ curve = ExtResource("9_hptm8")
 
 [node name="train" parent="Railroad_A" instance=ExtResource("10_d1ilt")]
 unique_name_in_owner = true
-transform = Transform3D(0.333945, 0, -0.942588, 0, 1, 0, 0.942588, 0, 0.333945, -5.66698, 0, -86.0339)
+transform = Transform3D(-0.703046, 0, 0.711127, 0, 1, 0, -0.711127, 0, -0.703046, 49.3796, 0, 52.1834)
+progress = 222.05
 
 [node name="player_camera" parent="Railroad_A/train" index="0"]
 current = true
@@ -206,7 +210,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 38.8153, 0, 41.3701)
 curve = SubResource("Curve3D_fdnlq")
 
 [node name="train_body" parent="." instance=ExtResource("11_d1ilt")]
-transform = Transform3D(0.333945, 0, -0.942588, 0, 1, 0, 0.942588, 0, 0.333945, -5.66698, 0, -86.0339)
+transform = Transform3D(-0.703046, 0, 0.711127, 0, 1, 0, -0.711127, 0, -0.703046, 49.3796, 0, 52.1834)
 
 [node name="Junction List" type="Node" parent="."]
 
@@ -225,7 +229,7 @@ track_R = NodePath("../../Railroad_B")
 track_merge = NodePath("../../Railroad_A")
 
 [node name="junction2" parent="Junction List" node_paths=PackedStringArray("track_L", "track_R", "track_merge") instance=ExtResource("14_jkdf5")]
-transform = Transform3D(-0.575305, 0, 0.817939, 0, 1, 0, -0.817939, 0, -0.575305, -24.4897, 3.8147e-06, -76.2725)
+transform = Transform3D(-0.575305, 0, 0.817939, 0, 1, 0, -0.817939, 0, -0.575305, -26.6692, 3.8147e-06, -75.6066)
 script = SubResource("GDScript_d1ilt")
 track_L = NodePath("../../Railroad_C")
 track_R = NodePath("../../Railroad_A")
@@ -253,5 +257,6 @@ track_merge = NodePath("../../Railroad_C")
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.417788, 0.908545, 0, -0.908545, 0.417788, 0, 89.4802, 71.4652)
+current = true
 
 [editable path="Railroad_A/train"]
