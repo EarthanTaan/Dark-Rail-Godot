@@ -1,4 +1,6 @@
-[gd_scene load_steps=4 format=3 uid="uid://dw74k0ycc8mya"]
+[gd_scene load_steps=5 format=3 uid="uid://dw74k0ycc8mya"]
+
+[ext_resource type="Script" uid="uid://cskbwjo0wydq0" path="res://Scripts/train_body.gd" id="1_vl7ce"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_jkdf5"]
 size = Vector3(2, 0.2, 4)
@@ -10,6 +12,7 @@ size = Vector3(2, 0.2, 2)
 size = Vector3(2.76, 2, 0.2)
 
 [node name="train_body" type="CharacterBody3D"]
+script = ExtResource("1_vl7ce")
 
 [node name="train_shape" type="CollisionShape3D" parent="."]
 shape = SubResource("BoxShape3D_jkdf5")

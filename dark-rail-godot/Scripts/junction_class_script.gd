@@ -5,6 +5,7 @@ class_name junction_class_script
 @export var track_R:Path3D
 @export var track_merge:Path3D
 
+@onready var train_body: CharacterBody3D = %train_body
 @onready var train: PathFollow3D = %train
 @onready var junction: Area3D = $junction
 @onready var preswitch: Area3D = $preswitch
@@ -49,9 +50,9 @@ func _on_junction_body_entered(body: Node3D) -> void:
 		dest_track = track_merge
 		print("Merged to track [" + str(track_merge.name) + "]. train.junc_lever == [" + str(train.junc_lever) + "].")
 	switch_look = false
+	flipit()
 	train.reparent(dest_track)
 	train.set_progress(dest_track.curve.get_closest_offset(train.position))
-	flipit()
 	print("switch_look is now [" + str(switch_look) + "].")
 	print("Train Progress set to [" + str(train.progress) + "].")
 	
@@ -63,15 +64,14 @@ func _on_exit_zone_body_exited(body: Node3D) -> void:
 	main.junctions_on = true
 	print("junctions_on is now [" + str(main.junctions_on) + "].")
 	
+signal flip_train
 func flipit():
 	var scout = dest_track.curve.sample_baked_with_rotation(dest_track.curve.get_closest_offset(train.position)).basis.z
-	var facing = train.basis.z
-	if scout.dot(facing) < 0:
-		# Snag the points in curve into an array
-		var claw:Array = dest_track.curve.get_baked_points()
-		# Reverse the array
-		claw.reverse()
-		# Reinsert the points in reversed order back into the curve
-		for point in claw:
-			dest_track.curve.add_point(point)
+	var facing = train_body.global_basis.z
 	
+	if scout.dot(facing) < 0:
+		flip_train.emit()
+		train.movement *= -1
+		
+
+		

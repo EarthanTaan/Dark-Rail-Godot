@@ -1,6 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://mnyd8gy5rrkk"]
+[gd_scene load_steps=14 format=3 uid="uid://mnyd8gy5rrkk"]
 
 [ext_resource type="Script" uid="uid://gu23yeoi53cw" path="res://Scripts/basis_test.gd" id="1_ce5bv"]
+[ext_resource type="Script" uid="uid://dqsognsl5i5yn" path="res://Scripts/label.gd" id="2_bx24h"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ce5bv"]
 sky_top_color = Color(0.63266, 0.694564, 0.807559, 1)
@@ -16,8 +17,36 @@ background_mode = 2
 sky = SubResource("Sky_bx24h")
 tonemap_mode = 2
 
-[sub_resource type="PrismMesh" id="PrismMesh_bx24h"]
-size = Vector3(1, 1, 0.2)
+[sub_resource type="PlaneMesh" id="PlaneMesh_bx24h"]
+size = Vector2(1, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bx24h"]
+albedo_color = Color(0.0703293, 0.311486, 0.670019, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_5vdhu"]
+material = SubResource("StandardMaterial3D_bx24h")
+radius = 0.1
+height = 0.2
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7cow5"]
+albedo_color = Color(0.723287, 0.0119257, 0.191648, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_f2wxs"]
+material = SubResource("StandardMaterial3D_7cow5")
+radius = 0.1
+height = 0.2
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_a4uct"]
+albedo_color = Color(0.349799, 0.589113, 0.265761, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_31lsp"]
+material = SubResource("StandardMaterial3D_a4uct")
+radius = 0.1
+height = 0.2
+
+[sub_resource type="LabelSettings" id="LabelSettings_5vdhu"]
+font_size = 10
+font_color = Color(0, 0, 0, 1)
 
 [node name="Basis Test" type="Node3D"]
 
@@ -26,8 +55,42 @@ environment = SubResource("Environment_5vdhu")
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.728168, 0.685399, 0, -0.685399, 0.728168, -2.38419e-07, 2.47186, 2.61589)
+current = true
+fov = 49.889
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
-mesh = SubResource("PrismMesh_bx24h")
+mesh = SubResource("PlaneMesh_bx24h")
 script = ExtResource("1_ce5bv")
+
+[node name="Z Orb" type="MeshInstance3D" parent="MeshInstance3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.5)
+mesh = SubResource("SphereMesh_5vdhu")
+
+[node name="X Orb" type="MeshInstance3D" parent="MeshInstance3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0, 0)
+mesh = SubResource("SphereMesh_f2wxs")
+
+[node name="Y Orb" type="MeshInstance3D" parent="MeshInstance3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+mesh = SubResource("SphereMesh_31lsp")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="Control"]
+layout_mode = 0
+offset_left = 26.0
+offset_top = 365.0
+offset_right = 154.0
+offset_bottom = 413.0
+scale = Vector2(3.80238, 2.97664)
+text = "X: 0.0000, 0.00000, 0.00000
+Y: 0.0000, 0.00000, 0.00000
+Z: 0.0000, 0.00000, 0.00000"
+label_settings = SubResource("LabelSettings_5vdhu")
+script = ExtResource("2_bx24h")

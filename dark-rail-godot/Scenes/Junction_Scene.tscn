@@ -68,7 +68,6 @@ shape = SubResource("SphereShape3D_wsu2k")
 debug_color = Color(0.770153, 0.389789, 0.568029, 0.42)
 
 [node name="preswitch_debug_vis" type="MeshInstance3D" parent="preswitch"]
-visible = false
 mesh = SubResource("SphereMesh_xqfnk")
 skeleton = NodePath("../..")
 
