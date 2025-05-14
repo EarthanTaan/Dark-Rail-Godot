@@ -255,6 +255,5 @@ track_merge = NodePath("../../Railroad_C")
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.417788, 0.908545, 0, -0.908545, 0.417788, 0, 89.4802, 71.4652)
-current = true
 
 [editable path="Railroad_A/train"]
