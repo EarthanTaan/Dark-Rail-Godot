@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://dw74k0ycc8mya"]
+[gd_scene load_steps=6 format=3 uid="uid://dw74k0ycc8mya"]
 
-[ext_resource type="Script" uid="uid://cskbwjo0wydq0" path="res://Scripts/train_body.gd" id="1_vl7ce"]
+[ext_resource type="Script" uid="uid://d1hljt8m4t1pe" path="res://Scripts/player_camera.gd" id="1_ln6qj"]
+[ext_resource type="Resource" uid="uid://1abw7cq1blrt" path="res://Resources/look.tres" id="2_hxol7"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_jkdf5"]
 size = Vector3(2, 0.2, 4)
@@ -12,7 +13,6 @@ size = Vector3(2, 0.2, 2)
 size = Vector3(2.76, 2, 0.2)
 
 [node name="train_body" type="CharacterBody3D"]
-script = ExtResource("1_vl7ce")
 
 [node name="train_shape" type="CollisionShape3D" parent="."]
 shape = SubResource("BoxShape3D_jkdf5")
@@ -26,3 +26,8 @@ skeleton = NodePath("../..")
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, -1)
 mesh = SubResource("PrismMesh_vl7ce")
 skeleton = NodePath("../..")
+
+[node name="player_camera" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.73232, 0)
+script = ExtResource("1_ln6qj")
+look = ExtResource("2_hxol7")

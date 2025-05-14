@@ -3,13 +3,13 @@ extends PathFollow3D
 #region Onreadies
 ## Junction Lever: false <=Left | Right=> true
 @onready var junc_lever:bool = false
+@onready var remote: RemoteTransform3D = $RemoteTransform3D
 #endregion
 
 #region Exports
 ## I think I need to change the whole way train speed works, for it to be upgradeable. Fortunately it is not currently upgradeable.
 @export var max_speed:float = 0.25 # The train's max speed, (future feature: upgradable through play)
 @export var pilot_mode:GUIDEMappingContext
-#@export var move:GUIDEAction # Not using this right now, might delete on a  later pass.
 @export var train_throttle:GUIDEAction
 @export var train_ebrake:GUIDEAction
 @export var junction_toggle:GUIDEAction
@@ -27,6 +27,7 @@ var movement:float = 0
 
 func _physics_process(delta):	
 	control_train() # Control the train when train-context is enabled.
+
 	
 # NOTE: Define functions below here.
 
@@ -56,5 +57,3 @@ func control_train():
 	
 	# This is the part that actually moves the train around the track.
 	progress += max_speed * movement
-	
-	
