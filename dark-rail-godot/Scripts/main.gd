@@ -8,9 +8,6 @@ extends Node3D
 # Start with the mouse captured by default.
 @onready var mouse_captured = true
 @onready var junctions_on:bool = true
-@onready var train:PathFollow3D = %train
-@onready var current_curve:Curve3D = train.get_parent_node_3d().curve
-
 # The following concerns walk mode and mode swapping, now irrelevant.
 ## "T" key toggles control modes between walk and pilot mapping contexts.
 ## Ultimately I will want this to only trigger when inside the train engine.

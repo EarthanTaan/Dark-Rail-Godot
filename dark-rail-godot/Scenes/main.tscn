@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://cv5u1e8bvid36"]
+[gd_scene load_steps=22 format=3 uid="uid://cv5u1e8bvid36"]
 
 [ext_resource type="Material" uid="uid://cwci62bjd4djm" path="res://Materials/ground_texture.tres" id="1_jjgbg"]
 [ext_resource type="Script" uid="uid://bgsv5tx3tqh6d" path="res://Scripts/main.gd" id="1_kry3j"]
@@ -60,13 +60,6 @@ _data = {
 "tilts": PackedFloat32Array(0, 0, 0)
 }
 point_count = 3
-
-[sub_resource type="Curve3D" id="Curve3D_jkdf5"]
-_data = {
-"points": PackedVector3Array(11.7486, 0, -16.5236, -11.7486, 0, 16.5236, -0.598979, 0, 8.12823, -21.8617, 0, 0.645737, 21.8617, 0, -0.645737, -1.51647, 0, -4.18336),
-"tilts": PackedFloat32Array(0, 0)
-}
-point_count = 2
 
 [sub_resource type="GDScript" id="GDScript_d1ilt"]
 script/source = "extends junction_class_script
@@ -196,11 +189,7 @@ curve = ExtResource("9_hptm8")
 
 [node name="train" parent="Railroad_A" instance=ExtResource("10_d1ilt")]
 unique_name_in_owner = true
-transform = Transform3D(-0.703046, 0, 0.711127, 0, 1, 0, -0.711127, 0, -0.703046, 49.3796, 0, 52.1834)
-progress = 222.05
-
-[node name="player_camera" parent="Railroad_A/train" index="0"]
-current = true
+transform = Transform3D(0.333946, 0, -0.942592, 0, 1, 0, 0.942592, 0, 0.333946, -5.66698, 0, -86.0339)
 
 [node name="RemoteTransform3D" parent="Railroad_A/train" index="1"]
 remote_path = NodePath("../../../train_body")
@@ -216,13 +205,10 @@ curve = SubResource("Curve3D_d1ilt")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 38.8153, 0, 41.3701)
 curve = SubResource("Curve3D_fdnlq")
 
-[node name="Railroad_E" parent="." instance=ExtResource("13_jkdf5")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 42.1819, 0, 53.0085)
-curve = SubResource("Curve3D_jkdf5")
-
 [node name="train_body" parent="." instance=ExtResource("11_d1ilt")]
 unique_name_in_owner = true
-transform = Transform3D(-0.703046, 0, 0.711127, 0, 1, 0, -0.711127, 0, -0.703046, 49.3796, 0, 52.1834)
+transform = Transform3D(0.333946, 0, -0.942592, 0, 1, 0, 0.942592, 0, 0.333946, -5.66698, 0, -86.0339)
+script = null
 
 [node name="Junction List" type="Node" parent="."]
 
@@ -266,18 +252,6 @@ transform = Transform3D(-0.671591, 0, -0.740922, 0, 1, 0, 0.740922, 0, -0.671591
 track_L = NodePath("../../Railroad_C")
 track_R = NodePath("../../Railroad_D")
 track_merge = NodePath("../../Railroad_C")
-
-[node name="junction 6" parent="Junction List" node_paths=PackedStringArray("track_L", "track_R", "track_merge") instance=ExtResource("14_jkdf5")]
-transform = Transform3D(-0.746754, 0, 0.6651, 0, 1, 0, -0.6651, 0, -0.746754, 40.6179, 0, 62.3226)
-track_L = NodePath("../../Railroad_A")
-track_R = NodePath("../../Railroad_E")
-track_merge = NodePath("../../Railroad_A")
-
-[node name="junction 7" parent="Junction List" node_paths=PackedStringArray("track_L", "track_R", "track_merge") instance=ExtResource("14_jkdf5")]
-transform = Transform3D(-0.0767713, 0, 0.997049, 0, 1, 0, -0.997049, 0, -0.0767713, 38.7765, 0, 48.8083)
-track_L = NodePath("../../Railroad_E")
-track_R = NodePath("../../Railroad_D")
-track_merge = NodePath("../../Railroad_D")
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.417788, 0.908545, 0, -0.908545, 0.417788, 0, 89.4802, 71.4652)

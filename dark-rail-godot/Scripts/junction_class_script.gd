@@ -39,23 +39,22 @@ func _on_junction_body_entered(body: Node3D) -> void:
 				dest_track = track_R
 			else: # moving forwward
 				dest_track = track_L
-			print(str(body.name) + " reparented to [" + str(track_L.name) + "], which should be the Left Track. train.junc_lever is [" + str(train.junc_lever) + "].")
 		elif train.junc_lever: # true, aka Right
 			if train.movement < 0: # moving backwards
 				dest_track = track_L
 			else: # moving forward
 				dest_track = track_R
-			print(str(body.name) + "reparented to [" + str(track_R.name) + "] which should be the Right Track. train.junc_lever is [" + str(train.junc_lever) + "].")
 	elif !switch_look:
 		dest_track = track_merge
-		print("Merged to track [" + str(track_merge.name) + "]. train.junc_lever == [" + str(train.junc_lever) + "].")
 	switch_look = false
-	flipit()
 	train.reparent(dest_track)
 	train.set_progress(dest_track.curve.get_closest_offset(train.position))
+	print("Reparented to track [" + str(dest_track.name) + "]. Junction Lever is [" + str(train.junc_lever) + "].")
 	print("switch_look is now [" + str(switch_look) + "].")
-	print("Train Progress set to [" + str(train.progress) + "].")
+	print("Train Progress set to [" + str(train.progress) + " on track [" + str(train.get_parent_node_3d().name) + "].")
 	
+	## The following technically works, but is so calculation-intense that it hangs the entire
+	## process if it doesn't outright lockup.
 	# If the train enters at the end of a curve, reverse the curve's point-sequence. 
 	#if train.get_progress_ratio() > 0.5:
 		#current_curve.get_baked_points()
@@ -63,15 +62,3 @@ func _on_junction_body_entered(body: Node3D) -> void:
 func _on_exit_zone_body_exited(body: Node3D) -> void:
 	main.junctions_on = true
 	print("junctions_on is now [" + str(main.junctions_on) + "].")
-	
-signal flip_train
-func flipit():
-	var scout = dest_track.curve.sample_baked_with_rotation(dest_track.curve.get_closest_offset(train.position)).basis.z
-	var facing = train_body.global_basis.z
-	
-	if scout.dot(facing) < 0:
-		flip_train.emit()
-		train.movement *= -1
-		
-
-		
