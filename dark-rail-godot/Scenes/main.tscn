@@ -62,7 +62,7 @@ shader_parameter/night_vision_noise = 0.3
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_wsu2k"]
 panorama = ExtResource("5_jkdf5")
 filter = false
-energy_multiplier = 3.95
+energy_multiplier = 0.43
 
 [sub_resource type="Sky" id="Sky_k12tt"]
 sky_material = SubResource("PanoramaSkyMaterial_wsu2k")
