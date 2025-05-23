@@ -1,11 +1,12 @@
-[gd_scene load_steps=22 format=3 uid="uid://cv5u1e8bvid36"]
+[gd_scene load_steps=26 format=3 uid="uid://cv5u1e8bvid36"]
 
 [ext_resource type="Material" uid="uid://cwci62bjd4djm" path="res://Materials/ground_texture.tres" id="1_jjgbg"]
 [ext_resource type="Script" uid="uid://bgsv5tx3tqh6d" path="res://Scripts/main.gd" id="1_kry3j"]
 [ext_resource type="PackedScene" uid="uid://clyhclfq6vqu2" path="res://Scenes/tree.tscn" id="2_jjvhh"]
 [ext_resource type="Resource" uid="uid://3cpdyogyjj0n" path="res://Resources/shared_context.tres" id="3_344ge"]
-[ext_resource type="PackedScene" uid="uid://3tfd58vp87rk" path="res://Resources/brightness_shader.tscn" id="4_fdnlq"]
+[ext_resource type="Shader" uid="uid://b1lp2x3j67ld5" path="res://Resources/brightness_shader.gdshader" id="4_jkdf5"]
 [ext_resource type="Resource" uid="uid://cmq41f5f2aypi" path="res://Resources/pilot_mode.tres" id="4_ynf5e"]
+[ext_resource type="Texture2D" uid="uid://c0mqvr7d55itx" path="res://Materials/background1.png" id="5_jkdf5"]
 [ext_resource type="Material" uid="uid://dftm0vd77ggr3" path="res://Materials/ruins_material.tres" id="8_jkdf5"]
 [ext_resource type="Curve3D" uid="uid://cr3txx8k0ismp" path="res://Resources/first_railroad_spline.tres" id="9_hptm8"]
 [ext_resource type="PackedScene" uid="uid://cf56wfdqgiqfx" path="res://Scenes/train.tscn" id="10_d1ilt"]
@@ -14,7 +15,61 @@
 [ext_resource type="PackedScene" uid="uid://bgtwd12pl561j" path="res://Scenes/Railroad_template.tscn" id="13_jkdf5"]
 [ext_resource type="PackedScene" uid="uid://ctj8sx8x8rnfm" path="res://Scenes/Junction_Scene.tscn" id="14_jkdf5"]
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_w81ec"]
+shader = ExtResource("4_jkdf5")
+shader_parameter/brightness = 1.5
+shader_parameter/contrast = 1.5
+shader_parameter/saturation = 0.779
+shader_parameter/gamma = 1.5
+shader_parameter/bloom_intensity = 0.0
+shader_parameter/bloom_threshold = 0.0
+shader_parameter/bloom_blur = 0.0
+shader_parameter/tint_color = Color(1, 0.97, 0.9, 1)
+shader_parameter/tint_strength = 0.0
+shader_parameter/vignette_intensity = 0.0
+shader_parameter/vignette_opacity = 0.0
+shader_parameter/vignette_roundness = 0.0
+shader_parameter/vignette_color = Color(0, 0, 0, 1)
+shader_parameter/film_grain = 0.0
+shader_parameter/film_grain_speed = 0.0
+shader_parameter/chromatic_aberration = 0.0
+shader_parameter/enable_god_rays = true
+shader_parameter/god_rays_intensity = 0.792
+shader_parameter/light_position = Vector2(0.735, 0.355)
+shader_parameter/enable_lens_dirt = false
+shader_parameter/lens_dirt_intensity = 0.5
+shader_parameter/enable_color_grading = false
+shader_parameter/color_lut_mix = 0.8
+shader_parameter/enable_dithering = true
+shader_parameter/dithering_intensity = 0.1
+shader_parameter/enable_scanlines = false
+shader_parameter/scanlines_opacity = 0.2
+shader_parameter/scanlines_width = 10.0
+shader_parameter/enable_sharpen = false
+shader_parameter/sharpen_intensity = 0.5
+shader_parameter/enable_color_blindness = false
+shader_parameter/color_blindness_type = 0
+shader_parameter/color_blindness_intensity = 1.0
+shader_parameter/enable_pixelate = false
+shader_parameter/pixelate_amount = 64.0
+shader_parameter/enable_edge_detection = true
+shader_parameter/edge_detection_intensity = 0.1
+shader_parameter/edge_detection_color = Color(1, 1, 1, 1)
+shader_parameter/enable_night_vision = false
+shader_parameter/night_vision_color = Color(0, 1, 0, 1)
+shader_parameter/night_vision_noise = 0.3
+
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_wsu2k"]
+panorama = ExtResource("5_jkdf5")
+filter = false
+energy_multiplier = 3.95
+
+[sub_resource type="Sky" id="Sky_k12tt"]
+sky_material = SubResource("PanoramaSkyMaterial_wsu2k")
+
 [sub_resource type="Environment" id="Environment_fdnlq"]
+background_mode = 2
+sky = SubResource("Sky_k12tt")
 
 [sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_jjgbg"]
 
@@ -60,7 +115,13 @@ script = ExtResource("1_kry3j")
 shared_context = ExtResource("3_344ge")
 pilot_mode = ExtResource("4_ynf5e")
 
-[node name="ColorRect" parent="." instance=ExtResource("4_fdnlq")]
+[node name="ColorRect" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_w81ec")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 mouse_filter = 2
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
@@ -206,7 +267,6 @@ unique_name_in_owner = true
 transform = Transform3D(-0.950699, 0, -0.310089, 0, 1, 0, 0.310089, 0, -0.950699, 62.5338, 1, -24.7788)
 
 [node name="player_camera" parent="train_body" index="3"]
-current = true
 far = 50.0
 
 [node name="Junction List" type="Node" parent="."]
@@ -253,8 +313,8 @@ track_R = NodePath("../../Railroad_D")
 track_merge = NodePath("../../Railroad_C")
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(0.775426, 0.445793, -0.447195, -0.0577073, 0.755284, 0.652853, 0.628796, -0.480433, 0.611392, 0, 89.4802, 71.4652)
-fov = 11.0761
+transform = Transform3D(-0.0993197, -0.182496, 0.978177, 0, 0.983038, 0.183402, -0.995055, 0.0182155, -0.0976351, 89.6329, 19.2215, -25.5236)
+fov = 51.6396
 
 [node name="Watchtower Scene" parent="." instance=ExtResource("12_6iyac")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 51.9947, -0.558292, -46)
