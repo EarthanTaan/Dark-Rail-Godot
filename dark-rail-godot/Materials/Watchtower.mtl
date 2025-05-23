@@ -1,0 +1,9 @@
+newmtl mainlev_build
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Tr 0.000000
+illum 0
+Ns 0.000000
+map_Kd Watchtower_mainlev_build.png
+map_d Watchtower_mainlev_build.png

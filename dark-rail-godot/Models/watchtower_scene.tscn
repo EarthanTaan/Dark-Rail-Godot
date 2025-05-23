@@ -1,0 +1,30 @@
+[gd_scene load_steps=5 format=3 uid="uid://dmp1e436ycqry"]
+
+[ext_resource type="ArrayMesh" uid="uid://dm7jmib8angcu" path="res://Models/Watchtower.obj" id="1_hsggg"]
+[ext_resource type="Texture2D" uid="uid://qnqtfh4orbdn" path="res://Materials/Watchtower_mainlev_build.png" id="2_vywoo"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_nndd5"]
+transparency = 2
+alpha_scissor_threshold = 0.5
+alpha_antialiasing_mode = 2
+alpha_antialiasing_edge = 0.3
+cull_mode = 2
+diffuse_mode = 3
+specular_mode = 1
+albedo_texture = ExtResource("2_vywoo")
+texture_filter = 2
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_0d5is"]
+size = Vector3(6, 10, 6)
+
+[node name="Watchtower Scene" type="StaticBody3D"]
+
+[node name="Watchtower" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.496846, 0, -0.969298)
+cast_shadow = 0
+mesh = ExtResource("1_hsggg")
+surface_material_override/0 = SubResource("StandardMaterial3D_nndd5")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.49538, 4.9692, -1)
+shape = SubResource("BoxShape3D_0d5is")

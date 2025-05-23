@@ -1,30 +1,20 @@
-[gd_scene load_steps=23 format=3 uid="uid://cv5u1e8bvid36"]
+[gd_scene load_steps=22 format=3 uid="uid://cv5u1e8bvid36"]
 
 [ext_resource type="Material" uid="uid://cwci62bjd4djm" path="res://Materials/ground_texture.tres" id="1_jjgbg"]
 [ext_resource type="Script" uid="uid://bgsv5tx3tqh6d" path="res://Scripts/main.gd" id="1_kry3j"]
 [ext_resource type="PackedScene" uid="uid://clyhclfq6vqu2" path="res://Scenes/tree.tscn" id="2_jjvhh"]
 [ext_resource type="Resource" uid="uid://3cpdyogyjj0n" path="res://Resources/shared_context.tres" id="3_344ge"]
+[ext_resource type="PackedScene" uid="uid://3tfd58vp87rk" path="res://Resources/brightness_shader.tscn" id="4_fdnlq"]
 [ext_resource type="Resource" uid="uid://cmq41f5f2aypi" path="res://Resources/pilot_mode.tres" id="4_ynf5e"]
 [ext_resource type="Material" uid="uid://dftm0vd77ggr3" path="res://Materials/ruins_material.tres" id="8_jkdf5"]
 [ext_resource type="Curve3D" uid="uid://cr3txx8k0ismp" path="res://Resources/first_railroad_spline.tres" id="9_hptm8"]
 [ext_resource type="PackedScene" uid="uid://cf56wfdqgiqfx" path="res://Scenes/train.tscn" id="10_d1ilt"]
 [ext_resource type="PackedScene" uid="uid://dw74k0ycc8mya" path="res://Scenes/train_body.tscn" id="11_d1ilt"]
+[ext_resource type="PackedScene" uid="uid://dmp1e436ycqry" path="res://Models/watchtower_scene.tscn" id="12_6iyac"]
 [ext_resource type="PackedScene" uid="uid://bgtwd12pl561j" path="res://Scenes/Railroad_template.tscn" id="13_jkdf5"]
 [ext_resource type="PackedScene" uid="uid://ctj8sx8x8rnfm" path="res://Scenes/Junction_Scene.tscn" id="14_jkdf5"]
 
-[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_jjgbg"]
-sky_top_color = Color(0.63266, 0.694564, 0.807559, 1)
-sky_horizon_color = Color(1.06851, 1.11035, 1.15801, 1)
-ground_bottom_color = Color(0.24178, 0.34723, 0.424882, 1)
-ground_horizon_color = Color(1.06851, 1.11035, 1.15801, 1)
-
-[sub_resource type="Sky" id="Sky_bo1nx"]
-sky_material = SubResource("ProceduralSkyMaterial_jjgbg")
-
-[sub_resource type="Environment" id="Environment_8gbba"]
-background_mode = 2
-sky = SubResource("Sky_bo1nx")
-tonemap_mode = 2
+[sub_resource type="Environment" id="Environment_fdnlq"]
 
 [sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_jjgbg"]
 
@@ -61,13 +51,6 @@ _data = {
 }
 point_count = 3
 
-[sub_resource type="Curve3D" id="Curve3D_jkdf5"]
-_data = {
-"points": PackedVector3Array(-10.9647, 0, -14.5264, 10.9647, 0, 14.5264, 4.64553, 0, -1.11251, 7.87585, 0, 1.21167, -7.87585, 0, -1.21167, 1.17456, 0, 19.5535, -3.62771, 0, 7.88443, 3.62771, 0, -7.88443, -2.86533, 0, -3.61368),
-"tilts": PackedFloat32Array(0, 0, 0)
-}
-point_count = 3
-
 [sub_resource type="GDScript" id="GDScript_d1ilt"]
 script/source = "extends junction_class_script
 "
@@ -77,13 +60,17 @@ script = ExtResource("1_kry3j")
 shared_context = ExtResource("3_344ge")
 pilot_mode = ExtResource("4_ynf5e")
 
+[node name="ColorRect" parent="." instance=ExtResource("4_fdnlq")]
+mouse_filter = 2
+
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_8gbba")
+environment = SubResource("Environment_fdnlq")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(-0.95424, -0.055009, 0.293938, 0, 0.982935, 0.183951, -0.299041, 0.175534, -0.937957, 0, 0, 0)
+transform = Transform3D(-0.95424, -0.0550091, 0.293938, 0, 0.982935, 0.183952, -0.299041, 0.175534, -0.937956, 0, 0, 0)
+light_specular = 10.0
 shadow_enabled = true
-directional_shadow_max_distance = 10.0
+directional_shadow_mode = 0
 
 [node name="Ground" type="StaticBody3D" parent="."]
 collision_layer = 0
@@ -196,7 +183,7 @@ curve = ExtResource("9_hptm8")
 
 [node name="train" parent="Railroad_A" instance=ExtResource("10_d1ilt")]
 unique_name_in_owner = true
-transform = Transform3D(-0.9507, 0, -0.310089, 0, 1, 0, 0.310089, 0, -0.9507, 62.5338, 0, -24.7788)
+transform = Transform3D(-0.950699, 0, -0.310089, 0, 1, 0, 0.310089, 0, -0.950699, 62.5338, 0, -24.7788)
 progress = 119.2
 
 [node name="RemoteTransform3D" parent="Railroad_A/train" index="0"]
@@ -214,13 +201,13 @@ curve = SubResource("Curve3D_d1ilt")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 38.8153, 0, 41.3701)
 curve = SubResource("Curve3D_fdnlq")
 
-[node name="Railroad_E" parent="." instance=ExtResource("13_jkdf5")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 61.3228, 0, -17.0617)
-curve = SubResource("Curve3D_jkdf5")
-
 [node name="train_body" parent="." instance=ExtResource("11_d1ilt")]
 unique_name_in_owner = true
-transform = Transform3D(-0.9507, 0, -0.310089, 0, 1, 0, 0.310089, 0, -0.9507, 62.5338, 1, -24.7788)
+transform = Transform3D(-0.950699, 0, -0.310089, 0, 1, 0, 0.310089, 0, -0.950699, 62.5338, 1, -24.7788)
+
+[node name="player_camera" parent="train_body" index="3"]
+current = true
+far = 50.0
 
 [node name="Junction List" type="Node" parent="."]
 
@@ -265,21 +252,16 @@ track_L = NodePath("../../Railroad_C")
 track_R = NodePath("../../Railroad_D")
 track_merge = NodePath("../../Railroad_C")
 
-[node name="junction6" parent="Junction List" node_paths=PackedStringArray("track_L", "track_R", "track_merge") instance=ExtResource("14_jkdf5")]
-transform = Transform3D(-0.964718, 0, -0.263284, 0, 1, 0, 0.263284, 0, -0.964718, 66.6812, 0, -16.8466)
-track_L = NodePath("../../Railroad_A")
-track_R = NodePath("../../Railroad_E")
-track_merge = NodePath("../../Railroad_A")
-
-[node name="junction7" parent="Junction List" node_paths=PackedStringArray("track_L", "track_R", "track_merge") instance=ExtResource("14_jkdf5")]
-transform = Transform3D(-0.997466, 0, 0.0711492, 0, 1, 0, -0.0711492, 0, -0.997466, 57.8239, 0, -19.4085)
-track_L = NodePath("../../Railroad_E")
-track_R = NodePath("../../Railroad_C")
-track_merge = NodePath("../../Railroad_C")
-
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(0.775426, 0.445793, -0.447195, -0.0577073, 0.755284, 0.652853, 0.628796, -0.480433, 0.611392, 0, 89.4802, 71.4652)
-current = true
 fov = 11.0761
 
+[node name="Watchtower Scene" parent="." instance=ExtResource("12_6iyac")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 51.9947, -0.558292, -46)
+
+[node name="Watchtower" parent="Watchtower Scene" index="0"]
+cast_shadow = 1
+
 [editable path="Railroad_A/train"]
+[editable path="train_body"]
+[editable path="Watchtower Scene"]

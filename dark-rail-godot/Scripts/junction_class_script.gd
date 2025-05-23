@@ -19,7 +19,7 @@ class_name junction_class_script
 ## Tripping this primes the 'junction' node to use the track-switching logic. If this isn't tripped first, 'junction' will default to the 'merge track.'
 @onready var preswitch: Area3D = $preswitch
 @onready var main: Node3D = $/root/Main
-@onready var flipped:bool = false
+#@onready var flipped:bool = false
 @onready var max_speed = train.max_speed
 #endregion
 
@@ -87,7 +87,8 @@ func flipper():
 	var scout = dest_track.curve.sample_baked_with_rotation(dest_track.curve.get_closest_offset(train.position)).basis.z
 	## The basis.z vector of the train's body.
 	var loc = train.position
-	# TODO: 1. Change scout to a point AHEAD of hypothetical switch point.
+	# DANGER: There is no more time to solve this problem. You just can't reverse the train's direction on a track.
+	# 1. Change scout to a point AHEAD of hypothetical switch point.
 	# 2. draw line from train loc to scout point
 	# 3. .dot() the line against the train's facing normal
 	# Maybe THIS will cause the trigger to fire!?
@@ -95,12 +96,12 @@ func flipper():
 	
 	
 	#if flipped == false: # NOT flipped
-	if facing.dot(scout) < 0: # If the range between these two vectors is greater than 90 deg. (Not Aligned)
-		remote.rotation_degrees.y = 180 # rotate the remote 180deg
-		train.max_speed *= -1
-		print("max_speed is now [" + str(max_speed) + "].")
-	else:
-		print("\nflipper didn't fire")
+	#if facing.dot(scout) < 0: # If the range between these two vectors is greater than 90 deg. (Not Aligned)
+		#remote.rotation_degrees.y = 180 # rotate the remote 180deg
+		#train.max_speed *= -1
+		#print("max_speed is now [" + str(max_speed) + "].")
+	#else:
+		#print("\nflipper didn't fire")
 		#flipped = !flipped
 	#elif flipped == true: # IS flipped
 	#if facing.dot(scout) > -1: # If the range between these two vectors is less than 180 deg. (Unite-aligned)
